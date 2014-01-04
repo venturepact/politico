@@ -1,0 +1,88 @@
+﻿@model Politico.Models.MP
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>MP</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.firstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.firstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.middleName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.middleName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Constituency.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Constituency.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Party.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Party.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.electedYear)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.electedYear)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.mobile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.mobile)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.qualification)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.qualification)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.image)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.image)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

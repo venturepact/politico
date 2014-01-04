@@ -1,0 +1,259 @@
+﻿@model IEnumerable<Politico.Models.Constituency>
+
+<script type="text/javascript">
+    $(function () {
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+
+        $("#search-textbox").bind("keydown", function (event) {
+            if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).data("autocomplete").menu.active) {
+                event.preventDefault();
+            }
+        })
+        $("#search-textbox").autocomplete({
+            source: function (request, response) {
+                //define a function to call your Action (assuming UserController)
+                $.ajax({
+                    url: '/Constituency/GetConstituency', type: "GET", dataType: "json",
+                    //query will be the param used by your action method
+                    data: { query: request.term },
+                    term: extractLast(request.term),
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }))
+                    }
+                })
+            },
+            search: function () {
+                // custom minLength
+                var term = extractLast(this.value);
+                if (term.length < 1) {
+                    return false;
+                }
+            },
+            focus: function () {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function (event, ui) {
+                var terms = split(this.value);
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push(ui.item.value);
+                // add placeholder to get the comma-and-space at the end
+                //terms.push("");
+                //this.value = terms.join(", ");
+                this.value = terms;
+                return false;
+            }
+        });
+
+    });
+
+    $('#search-textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            $('#submitButton').focus();
+        }
+    });
+
+    $(document).ready(function () {
+        $('.popup_open').click(function () {
+            $('#popup').popup({
+                'autoopen': true
+            });
+        });
+    });
+</script>
+
+@*Facebook Login*@
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '722160411129816',
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
+        });
+
+        // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+        // for any authentication related change, such as login, logout or session refresh. This means that
+        // whenever someone who was previously logged out tries to log in again, the correct case below 
+        // will be handled. 
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            // Here we specify what we do with the response anytime this event occurs. 
+            if (response.status === 'connected') {
+                // The response object is returned with a status field that lets the app know the current
+                // login status of the person. In this case, we're handling the situation where they 
+                // have logged in to the app.                
+            } else if (response.status === 'not_authorized') {
+                // In this case, the person is logged into Facebook, but not into the app, so we call
+                // FB.login() to prompt them to do so. 
+                // In real-life usage, you wouldn't want to immediately prompt someone to login 
+                // like this, for two reasons:
+                // (1) JavaScript created popup windows are blocked by most browsers unless they 
+                // result from direct interaction from people using the app (such as a mouse click)
+                // (2) it is a bad experience to be continually prompted to login upon page load.
+                FB.login();
+            } else {
+                // In this case, the person is not logged into Facebook, so we call the login() 
+                // function to prompt them to do so. Note that at this stage there is no indication
+                // of whether they are logged into the app. If they aren't then they'll see the Login
+                // dialog right after they log in to Facebook. 
+                // The same caveats as above apply to the FB.login() call here.
+                FB.login();
+            }
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function (d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+
+    function fbLogin() {
+        FB.login(function (response) {
+            FB.api('/me', function (response) {
+                if (response.name) {
+                    var picture = "http://graph.facebook.com/" + response.id + "/picture";
+                    var name = response.name;
+                    var email = response.email;
+
+                    if (email == undefined) {
+                        alert("Please allow access to email.");
+                        FB.logout(function () {
+                            alert("Logout");
+                        });
+                    }
+                    else {
+                        alert("Success");
+                    }
+                }
+            })
+
+        }, { scope: 'email' });
+    }
+</script>
+
+@*Google Login*@
+<script src="https://apis.google.com/js/client.js"></script>
+<script>
+    (function () {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+
+    function render() {
+        gapi.signin.render('googleLogin', {
+            'callback': 'signinCallback',
+            'approvalprompt': 'force',
+            'clientid': '1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com',
+            'cookiepolicy': 'single_host_origin',
+            'height': 'short',
+            'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+        });
+    }
+
+    function signinCallback(authResult) {
+        if (authResult) {
+            if (authResult['access_token']) {
+                gapi.auth.setToken(authResult);
+                getEmail();
+            }
+            else if (authResult['error']) {
+                alert("Fail");
+            }
+        }
+    }
+    function getEmail() {
+        gapi.client.load('oauth2', 'v2', function () {
+            var request = gapi.client.oauth2.userinfo.get();
+            request.execute(getEmailCallback);
+        });
+    }
+
+    function getEmailCallback(obj) {
+        //alert(Object.keys(obj));
+
+        var picture = obj['picture'];
+        var email = '';
+        var name = '';
+        if (obj['email']) {
+            email = obj['email'];
+        }
+        if (obj['name']) {
+            name = obj['name'];
+        }
+        alert("Success");
+    }
+</script>
+
+@*Twitter Login*@
+<script>
+    //function twitterLogin() {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: 'https://api.twitter.com/oauth/authenticate?oauth_token=pbSxgMsYX8UDkCw8P088eU1zNAflp2Lu5hvhAtY&force_login=false',
+    //        //data: { 'oauth_token': 'pbSxgMsYX8UDkCw8P088eU1zNAflp2Lu5hvhAtY', 'force_login': 'false' },
+    //        dataType: 'json',
+    //        success: function (jsonData) {
+    //            //This function gets called after posting to the server
+    //            alert('Success')
+    //        },
+    //        error: function () {
+    //            alert('Fail');
+    //        }
+    //    });
+    //}
+</script>
+
+@{
+    ViewBag.Title = "Welcome";
+}
+<div id="page">
+
+    <h1>Venturepact</h1>
+
+    <div id="searchForm" class="well">
+        @Html.TextBox("search-textbox")
+        <input type="submit" class="popup_open btn btn-large btn-success" value="Search" id="submitButton" />
+        <%=Html.TextBoxFor(m => m.title)%>                  
+    </div>
+</div>
+<div id="popup" style="display: none; margin: 1em; outline: none; z-index: 9999;">
+
+    <div id="box_bg">
+        <div id="content">
+            <h2>Sign In</h2>
+            <div class="social">
+                Sign in using social network:<br />
+                <div id="twitterLogin" class="twitter" onclick=""><a href="JavaScript:newPopup('https://api.twitter.com/oauth/authenticate?oauth_token=inQZlr5iHK6ESYKREeCnnSD9VO46RVo5jD5xvqrgJM&force_login=false');" class="btn_1">Login with Twitter</a></div>
+                <div id="fbLogin" class="fb" onclick="fbLogin()"><a id="" href="#" class="btn_2">Login with Facebook</a></div>
+                <div id="googleLogin" class="google" onclick=""><a href="#" class="btn_3">Login with Google</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Popup window code
+    function newPopup(url) {
+        popupWindow = window.open(
+            url, 'popUpWindow', 'height=400,width=350,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+</script>

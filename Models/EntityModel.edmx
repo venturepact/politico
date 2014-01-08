@@ -1,0 +1,790 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PoliticoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PoliticoModelStoreContainer">
+          <EntitySet Name="Answer" EntityType="PoliticoModel.Store.Answer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comment" EntityType="PoliticoModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Constituency" EntityType="PoliticoModel.Store.Constituency" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Member" EntityType="PoliticoModel.Store.Member" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MP" EntityType="PoliticoModel.Store.MP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Party" EntityType="PoliticoModel.Store.Party" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Question" EntityType="PoliticoModel.Store.Question" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Result" EntityType="PoliticoModel.Store.Result" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sector" EntityType="PoliticoModel.Store.Sector" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="State" EntityType="PoliticoModel.Store.State" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Answer_Member" Association="PoliticoModel.Store.FK_Answer_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="PoliticoModel.Store.FK_Answer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.Store.FK_Comment_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.Store.FK_Comment_MP">
+            <End Role="MP" EntitySet="MP" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.Store.FK_Comment_Sector">
+            <End Role="Sector" EntitySet="Sector" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Constituency_Party" Association="PoliticoModel.Store.FK_Constituency_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Constituency" EntitySet="Constituency" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Constituency_State" Association="PoliticoModel.Store.FK_Constituency_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Constituency" EntitySet="Constituency" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MP_Constituency" Association="PoliticoModel.Store.FK_MP_Constituency">
+            <End Role="Constituency" EntitySet="Constituency" />
+            <End Role="MP" EntitySet="MP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MP_Party" Association="PoliticoModel.Store.FK_MP_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="MP" EntitySet="MP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Party" Association="PoliticoModel.Store.FK_Question_Party">
+            <End Role="Party" EntitySet="Party" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.Store.FK_Result_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Result" EntitySet="Result" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IsAgree" Type="bit" />
+          <Property Name="questionID" Type="int" />
+          <Property Name="userID" Type="bigint" />
+          <Property Name="datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="rating" Type="decimal" Precision="1" Scale="1" />
+          <Property Name="comment" Type="varchar" MaxLength="500" />
+          <Property Name="sectorID" Type="int" />
+          <Property Name="userID" Type="bigint" />
+          <Property Name="mpID" Type="bigint" />
+          <Property Name="datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Constituency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" MaxLength="250" />
+          <Property Name="stateID" Type="int" />
+          <Property Name="partyID" Type="int" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="loginID" Type="varchar" MaxLength="100" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="middleName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="profileImage" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="MP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="middleName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="constituencyID" Type="int" />
+          <Property Name="partyID" Type="int" />
+          <Property Name="electedYear" Type="int" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="qualification" Type="varchar" MaxLength="100" />
+          <Property Name="image" Type="varchar(max)" />
+          <Property Name="avgRating" Type="decimal" Precision="1" Scale="1" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" MaxLength="250" />
+          <Property Name="abbreviation" Type="varchar" MaxLength="10" />
+          <Property Name="image" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar(max)" />
+          <Property Name="partyID" Type="int" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="result" Type="varchar(max)" />
+          <Property Name="userID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Sector">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_Answer_Member">
+          <End Role="Member" Type="PoliticoModel.Store.Member" Multiplicity="0..1" />
+          <End Role="Answer" Type="PoliticoModel.Store.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Role="Question" Type="PoliticoModel.Store.Question" Multiplicity="0..1" />
+          <End Role="Answer" Type="PoliticoModel.Store.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="questionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Member">
+          <End Role="Member" Type="PoliticoModel.Store.Member" Multiplicity="0..1" />
+          <End Role="Comment" Type="PoliticoModel.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_MP">
+          <End Role="MP" Type="PoliticoModel.Store.MP" Multiplicity="0..1" />
+          <End Role="Comment" Type="PoliticoModel.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MP">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="mpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Sector">
+          <End Role="Sector" Type="PoliticoModel.Store.Sector" Multiplicity="0..1" />
+          <End Role="Comment" Type="PoliticoModel.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="sectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Constituency_Party">
+          <End Role="Party" Type="PoliticoModel.Store.Party" Multiplicity="0..1" />
+          <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Constituency">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Constituency_State">
+          <End Role="State" Type="PoliticoModel.Store.State" Multiplicity="0..1" />
+          <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Constituency">
+              <PropertyRef Name="stateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MP_Constituency">
+          <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="0..1" />
+          <End Role="MP" Type="PoliticoModel.Store.MP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MP">
+              <PropertyRef Name="constituencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MP_Party">
+          <End Role="Party" Type="PoliticoModel.Store.Party" Multiplicity="0..1" />
+          <End Role="MP" Type="PoliticoModel.Store.MP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MP">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Party">
+          <End Role="Party" Type="PoliticoModel.Store.Party" Multiplicity="0..1" />
+          <End Role="Question" Type="PoliticoModel.Store.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Result_Member">
+          <End Role="Member" Type="PoliticoModel.Store.Member" Multiplicity="0..1" />
+          <End Role="Result" Type="PoliticoModel.Store.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FindComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MPID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="constituencyID" Type="bigint" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PoliticoModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PoliticoEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Parties" EntityType="PoliticoModel.Party" />
+          <EntitySet Name="States" EntityType="PoliticoModel.State" />
+          <EntitySet Name="Constituencies" EntityType="PoliticoModel.Constituency" />
+          <AssociationSet Name="FK_Constituency_Party" Association="PoliticoModel.FK_Constituency_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Constituency" EntitySet="Constituencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Constituency_State" Association="PoliticoModel.FK_Constituency_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="Constituency" EntitySet="Constituencies" />
+          </AssociationSet>
+          <EntitySet Name="MPs" EntityType="PoliticoModel.MP" />
+          <AssociationSet Name="FK_MP_Constituency" Association="PoliticoModel.FK_MP_Constituency">
+            <End Role="Constituency" EntitySet="Constituencies" />
+            <End Role="MP" EntitySet="MPs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MP_Party" Association="PoliticoModel.FK_MP_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="MP" EntitySet="MPs" />
+          </AssociationSet>
+          <EntitySet Name="Answers" EntityType="PoliticoModel.Answer" />
+          <EntitySet Name="Comments" EntityType="PoliticoModel.Comment" />
+          <EntitySet Name="Members" EntityType="PoliticoModel.Member" />
+          <EntitySet Name="Questions" EntityType="PoliticoModel.Question" />
+          <EntitySet Name="Results" EntityType="PoliticoModel.Result" />
+          <EntitySet Name="Sectors" EntityType="PoliticoModel.Sector" />
+          <AssociationSet Name="FK_Answer_Member" Association="PoliticoModel.FK_Answer_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="PoliticoModel.FK_Answer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.FK_Comment_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.FK_Comment_MP">
+            <End Role="MP" EntitySet="MPs" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.FK_Comment_Sector">
+            <End Role="Sector" EntitySet="Sectors" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.FK_Result_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Party" Association="PoliticoModel.FK_Question_Party">
+            <End Role="Party" EntitySet="Parties" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
+            <Parameter Name="MPID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
+            <Parameter Name="constituencyID" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="abbreviation" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="image" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Constituencies" Relationship="PoliticoModel.FK_Constituency_Party" FromRole="Party" ToRole="Constituency" />
+          <NavigationProperty Name="MPs" Relationship="PoliticoModel.FK_MP_Party" FromRole="Party" ToRole="MP" />
+          <NavigationProperty Name="Questions" Relationship="PoliticoModel.FK_Question_Party" FromRole="Party" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Constituencies" Relationship="PoliticoModel.FK_Constituency_State" FromRole="State" ToRole="Constituency" />
+        </EntityType>
+        <EntityType Name="Constituency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="title" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="stateID" />
+          <Property Type="Int32" Name="partyID" />
+          <NavigationProperty Name="Party" Relationship="PoliticoModel.FK_Constituency_Party" FromRole="Constituency" ToRole="Party" />
+          <NavigationProperty Name="State" Relationship="PoliticoModel.FK_Constituency_State" FromRole="Constituency" ToRole="State" />
+          <NavigationProperty Name="MPs" Relationship="PoliticoModel.FK_MP_Constituency" FromRole="Constituency" ToRole="MP" />
+        </EntityType>
+        <Association Name="FK_Constituency_Party">
+          <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Constituency" Role="Constituency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Constituency">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Constituency_State">
+          <End Type="PoliticoModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Constituency" Role="Constituency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Constituency">
+              <PropertyRef Name="stateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="firstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="middleName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="lastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="constituencyID" />
+          <Property Type="Int32" Name="partyID" />
+          <Property Type="Int32" Name="electedYear" />
+          <Property Type="String" Name="phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="qualification" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="image" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Constituency" Relationship="PoliticoModel.FK_MP_Constituency" FromRole="MP" ToRole="Constituency" />
+          <NavigationProperty Name="Party" Relationship="PoliticoModel.FK_MP_Party" FromRole="MP" ToRole="Party" />
+          <Property Type="Decimal" Name="avgRating" Precision="1" Scale="1" />
+          <NavigationProperty Name="Comments" Relationship="PoliticoModel.FK_Comment_MP" FromRole="MP" ToRole="Comment" />
+        </EntityType>
+        <Association Name="FK_MP_Constituency">
+          <End Type="PoliticoModel.Constituency" Role="Constituency" Multiplicity="0..1" />
+          <End Type="PoliticoModel.MP" Role="MP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MP">
+              <PropertyRef Name="constituencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MP_Party">
+          <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="PoliticoModel.MP" Role="MP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MP">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="IsAgree" />
+          <Property Type="Int32" Name="questionID" />
+          <Property Type="Int64" Name="userID" />
+          <Property Type="DateTime" Name="datetime" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Answer_Member" FromRole="Answer" ToRole="Member" />
+          <NavigationProperty Name="Question" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="rating" Precision="1" Scale="1" />
+          <Property Type="String" Name="comment1" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sectorID" />
+          <Property Type="Int64" Name="userID" />
+          <Property Type="Int64" Name="mpID" />
+          <Property Type="DateTime" Name="datetime" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Comment" ToRole="Member" />
+          <NavigationProperty Name="MP" Relationship="PoliticoModel.FK_Comment_MP" FromRole="Comment" ToRole="MP" />
+          <NavigationProperty Name="Sector" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Comment" ToRole="Sector" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="loginID" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="firstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="middleName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="lastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="profileImage" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Answers" Relationship="PoliticoModel.FK_Answer_Member" FromRole="Member" ToRole="Answer" />
+          <NavigationProperty Name="Comments" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Member" ToRole="Comment" />
+          <NavigationProperty Name="Results" Relationship="PoliticoModel.FK_Result_Member" FromRole="Member" ToRole="Result" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="title" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partyID" />
+          <NavigationProperty Name="Answers" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
+          <NavigationProperty Name="Party" Relationship="PoliticoModel.FK_Question_Party" FromRole="Question" ToRole="Party" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="result1" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="userID" />
+          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Result_Member" FromRole="Result" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Sector">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="title" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comments" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Sector" ToRole="Comment" />
+        </EntityType>
+        <Association Name="FK_Answer_Member">
+          <End Type="PoliticoModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Type="PoliticoModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="questionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Member">
+          <End Type="PoliticoModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_MP">
+          <End Type="PoliticoModel.MP" Role="MP" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MP">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="mpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Sector">
+          <End Type="PoliticoModel.Sector" Role="Sector" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="sectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Result_Member">
+          <End Type="PoliticoModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Result" Role="Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Party">
+          <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="FindComment_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="FindMPOfConstituency_Result">
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="electedYear" Nullable="true" />
+          <Property Type="String" Name="image" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="image1" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PoliticoModelStoreContainer" CdmEntityContainer="PoliticoEntities">
+          <EntitySetMapping Name="Parties">
+            <EntityTypeMapping TypeName="PoliticoModel.Party">
+              <MappingFragment StoreEntitySet="Party">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="PoliticoModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constituencies">
+            <EntityTypeMapping TypeName="PoliticoModel.Constituency">
+              <MappingFragment StoreEntitySet="Constituency">
+                <ScalarProperty Name="partyID" ColumnName="partyID" />
+                <ScalarProperty Name="stateID" ColumnName="stateID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MPs">
+            <EntityTypeMapping TypeName="PoliticoModel.MP">
+              <MappingFragment StoreEntitySet="MP">
+                <ScalarProperty Name="avgRating" ColumnName="avgRating" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="electedYear" ColumnName="electedYear" />
+                <ScalarProperty Name="partyID" ColumnName="partyID" />
+                <ScalarProperty Name="constituencyID" ColumnName="constituencyID" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="PoliticoModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="questionID" ColumnName="questionID" />
+                <ScalarProperty Name="IsAgree" ColumnName="IsAgree" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="PoliticoModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="mpID" ColumnName="mpID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="comment1" ColumnName="comment" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="PoliticoModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="profileImage" ColumnName="profileImage" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="loginID" ColumnName="loginID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="PoliticoModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="partyID" ColumnName="partyID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="PoliticoModel.Result">
+              <MappingFragment StoreEntitySet="Result">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="result1" ColumnName="result" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sectors">
+            <EntityTypeMapping TypeName="PoliticoModel.Sector">
+              <MappingFragment StoreEntitySet="Sector">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FindComment" FunctionName="PoliticoModel.Store.FindComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.FindComment_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+                <ScalarProperty Name="electedYear" ColumnName="electedYear" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

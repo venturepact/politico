@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PoliticoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PoliticoModelStoreContainer">
+    <EntitySet Name="Constituency" EntityType="PoliticoModel.Store.Constituency" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MP" EntityType="PoliticoModel.Store.MP" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Party" EntityType="PoliticoModel.Store.Party" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="State" EntityType="PoliticoModel.Store.State" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserProfile" EntityType="PoliticoModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_Membership" EntityType="PoliticoModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="PoliticoModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_Roles" EntityType="PoliticoModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="PoliticoModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Constituency_Party" Association="PoliticoModel.Store.FK_Constituency_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Constituency" EntitySet="Constituency" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Constituency_State" Association="PoliticoModel.Store.FK_Constituency_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="Constituency" EntitySet="Constituency" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MP_Constituency" Association="PoliticoModel.Store.FK_MP_Constituency">
+      <End Role="Constituency" EntitySet="Constituency" />
+      <End Role="MP" EntitySet="MP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MP_Party" Association="PoliticoModel.Store.FK_MP_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="MP" EntitySet="MP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_webpages_UsersInRoles_UserProfile" Association="PoliticoModel.Store.FK_webpages_UsersInRoles_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="PoliticoModel.Store.FK_webpages_UsersInRoles_webpages_Roles">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Constituency">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="varchar" MaxLength="250" />
+    <Property Name="stateID" Type="int" />
+    <Property Name="partyID" Type="int" />
+  </EntityType>
+  <EntityType Name="MP">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="middleName" Type="varchar" MaxLength="50" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="constituencyID" Type="int" />
+    <Property Name="partyID" Type="int" />
+    <Property Name="electedYear" Type="int" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="qualification" Type="varchar" MaxLength="100" />
+    <Property Name="image" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="varchar" MaxLength="250" />
+    <Property Name="abbreviation" Type="varchar" MaxLength="10" />
+    <Property Name="image" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsConfirmed" Type="bit" />
+    <Property Name="LastPasswordFailureDate" Type="datetime" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordChangedDate" Type="datetime" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="webpages_Roles_RoleId" />
+      <PropertyRef Name="UserProfiles_UserId" />
+    </Key>
+    <Property Name="webpages_Roles_RoleId" Type="int" Nullable="false" />
+    <Property Name="UserProfiles_UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Constituency_Party">
+    <End Role="Party" Type="PoliticoModel.Store.Party" Multiplicity="0..1" />
+    <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Constituency">
+        <PropertyRef Name="partyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Constituency_State">
+    <End Role="State" Type="PoliticoModel.Store.State" Multiplicity="0..1" />
+    <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Constituency">
+        <PropertyRef Name="stateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MP_Constituency">
+    <End Role="Constituency" Type="PoliticoModel.Store.Constituency" Multiplicity="0..1" />
+    <End Role="MP" Type="PoliticoModel.Store.MP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Constituency">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MP">
+        <PropertyRef Name="constituencyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MP_Party">
+    <End Role="Party" Type="PoliticoModel.Store.Party" Multiplicity="0..1" />
+    <End Role="MP" Type="PoliticoModel.Store.MP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MP">
+        <PropertyRef Name="partyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_webpages_UsersInRoles_UserProfile">
+    <End Role="UserProfile" Type="PoliticoModel.Store.UserProfile" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="PoliticoModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="UserProfiles_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
+    <End Role="webpages_Roles" Type="PoliticoModel.Store.webpages_Roles" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="PoliticoModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="webpages_Roles_RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

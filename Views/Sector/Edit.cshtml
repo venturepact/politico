@@ -1,4 +1,4 @@
-﻿@model Politico.Models.State
+﻿@model Politico.Models.Sector
 
 @{
     ViewBag.Title = "Edit";
@@ -10,13 +10,12 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>State</legend>
+        <legend>Sector</legend>
 
         @Html.HiddenFor(model => model.ID)
 
         <div class="editor-label">
-            Title
-            @*@Html.LabelFor(model => model.title)*@
+            @Html.LabelFor(model => model.title)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.title)

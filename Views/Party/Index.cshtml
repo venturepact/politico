@@ -11,35 +11,43 @@
 </p>
 <table>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
+        <th>Title
+            @*@Html.DisplayNameFor(model => model.title)*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.abbreviation)
+        <th>Abbr.
+            @*@Html.DisplayNameFor(model => model.abbreviation)*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
+        <th>Logo
+            @*@Html.DisplayNameFor(model => model.image)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.abbreviation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.abbreviation)
+            </td>
+            <td>
+                @if (item.image != null)
+                {                 
+                    <img src="@Url.Content(item.image)" alt="" width="100" height="100" />                                
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.image)
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

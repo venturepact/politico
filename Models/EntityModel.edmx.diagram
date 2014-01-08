@@ -13,6 +13,19 @@
         <EntityTypeShape EntityType="PoliticoModel.MP" Width="1.5" PointX="5.9698222456359407" PointY="12.511832094058317" />
         <AssociationConnector Association="PoliticoModel.FK_MP_Constituency" />
         <AssociationConnector Association="PoliticoModel.FK_MP_Party" />
+        <EntityTypeShape EntityType="PoliticoModel.Answer" Width="1.5" PointX="0.67671455101888367" PointY="30.398562207072302" />
+        <EntityTypeShape EntityType="PoliticoModel.Comment" Width="1.5" PointX="9.4408885247264465" PointY="14.687541104241992" />
+        <EntityTypeShape EntityType="PoliticoModel.Member" Width="1.5" PointX="4.0308785215163967" PointY="16.419224612610055" />
+        <EntityTypeShape EntityType="PoliticoModel.Question" Width="1.5" PointX="11.29626970891667" PointY="18.023079239774066" />
+        <EntityTypeShape EntityType="PoliticoModel.Result" Width="1.5" PointX="2.8735251514583475" PointY="11.498548915376212" />
+        <EntityTypeShape EntityType="PoliticoModel.Sector" Width="1.5" PointX="0.86280751454774651" PointY="1.018661812422174" />
+        <AssociationConnector Association="PoliticoModel.FK_Answer_Member" />
+        <AssociationConnector Association="PoliticoModel.FK_Answer_Question" />
+        <AssociationConnector Association="PoliticoModel.FK_Comment_Member" />
+        <AssociationConnector Association="PoliticoModel.FK_Comment_MP" />
+        <AssociationConnector Association="PoliticoModel.FK_Comment_Sector" />
+        <AssociationConnector Association="PoliticoModel.FK_Result_Member" />
+        <AssociationConnector Association="PoliticoModel.FK_Question_Party" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

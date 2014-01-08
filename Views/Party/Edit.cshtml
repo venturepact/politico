@@ -6,7 +6,8 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -15,7 +16,8 @@
         @Html.HiddenFor(model => model.ID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.title)
+            Title
+            @*@Html.LabelFor(model => model.title)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.title)
@@ -23,7 +25,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.abbreviation)
+            Abbr.
+            @*@Html.LabelFor(model => model.abbreviation)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.abbreviation)
@@ -31,7 +34,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.image)
+            Logo
+            @*@Html.LabelFor(model => model.image)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.image)

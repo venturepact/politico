@@ -10,27 +10,29 @@
     <legend>Constituency</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.title)
+        Title
+        @*@Html.DisplayNameFor(model => model.title)*@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.title)
     </div>
-
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.State.title)
+        State
+        @*@Html.DisplayNameFor(model => model.State.title)*@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.State.title)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Party.title)
+        Party
+        @*@Html.DisplayNameFor(model => model.Party.title)*@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Party.title)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

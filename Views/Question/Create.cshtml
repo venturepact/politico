@@ -1,34 +1,23 @@
-﻿@model Politico.Models.Constituency
+﻿@model Politico.Models.Question
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Constituency</legend>
-
-        @Html.HiddenFor(model => model.ID)
+        <legend>Question</legend>
 
         <div class="editor-label">
-            Title
-            @*@Html.LabelFor(model => model.title)*@
+            @Html.LabelFor(model => model.title)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.title)
             @Html.ValidationMessageFor(model => model.title)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.stateID, "State")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("stateID", String.Empty)
-            @Html.ValidationMessageFor(model => model.stateID)
         </div>
 
         <div class="editor-label">
@@ -40,7 +29,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 }

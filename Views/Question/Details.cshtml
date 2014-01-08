@@ -1,4 +1,4 @@
-﻿@model Politico.Models.State
+﻿@model Politico.Models.Question
 
 @{
     ViewBag.Title = "Details";
@@ -7,14 +7,20 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>State</legend>
+    <legend>Question</legend>
 
     <div class="display-label">
-        Title
-        @*@Html.DisplayNameFor(model => model.title)*@
+         @Html.DisplayNameFor(model => model.title)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Party.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Party.title)
     </div>
 </fieldset>
 <p>

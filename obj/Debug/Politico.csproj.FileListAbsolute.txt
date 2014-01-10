@@ -47,3 +47,7 @@ C:\Users\rajaa\Documents\Visual Studio 2012\Projects\MvcApp\MvcApp\bin\DotNetOpe
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\MvcApp\MvcApp\obj\Debug\Politico.csprojResolveAssemblyReference.cache
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\MvcApp\MvcApp\obj\Debug\MvcApp.dll
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\MvcApp\MvcApp\obj\Debug\MvcApp.pdb
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Politico.dll
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Politico.pdb
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Debug\Politico.dll
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Debug\Politico.pdb

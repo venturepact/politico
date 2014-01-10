@@ -1,230 +1,204 @@
-* {
-    margin: 0;
-    padding: 0;
+*{
+	margin:0;
+	padding:0;
 }
 
-body {
-    font-size: 13px;
-    color: #eee;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #fff;
+body{
+	font-size:13px;
+	color:#eee;
+	font-family:Arial, Helvetica, sans-serif;
+	background:#fff;
 }
 
-#main {
-    width: 100%;
-    margin: 0;
-    background-image: url(/Images/Application/independence.jpg);
-    background-repeat: no-repeat;
+#main{
+	width:100%;
+	margin:0;
+	background-image:url(/Images/Application/independence.jpg); background-repeat:no-repeat;
+}
+#page{
+	/* The main container div */
+	width:620px;
+	padding:100px;
+	margin:0 auto;
+	
+}
+h1{
+	font-family:Corbel,'Myriad Pro',Arial, Helvetica, sans-serif;
+	background:url('/Images/Application/logo.png') no-repeat center top;
+	text-indent:-9999px;
+	overflow:hidden;
+	height:105px;
+}
+#searchForm{
+	/* The search form. */
+	background-color:#efefef;
+	padding:50px 50px;
+	margin:80px 0;
+	-moz-box-shadow: 0 0 8px #666;
+	-webkit-box-shadow: 0 0 8px#666;
+	box-shadow: 0 0 8px #666;
 }
 
-#page {
-    /* The main container div */
-    width: 620px;
-    padding: 100px;
-    margin: 0 auto;
+fieldset{
+	border:none;
 }
-
-h1 {
-    font-family: Corbel,'Myriad Pro',Arial, Helvetica, sans-serif;
-    background: url('/Images/Application/logo.png') no-repeat center top;
-    text-indent: -9999px;
-    overflow: hidden;
-    height: 105px;
+#searchInputContainer{
+	/* This div contains the transparent search box */
+	width:420px;
+	height:36px;
+	background-color:#fff;
+	float:left;
+	margin-right:12px;
 }
-
-#searchForm {
-    /* The search form. */
-    background-color: #efefef;
-    padding: 50px 50px;
-    margin: 80px 0;
-    -moz-box-shadow: 0 0 8px #666;
-    -webkit-box-shadow: 0 0 8px#666;
-    box-shadow: 0 0 8px #666;
+#search-textbox{
+	/* The search text box. */
+	border: 1px solid #CCC;
+	color:#888888;
+	float:left;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:15px;
+	height:34px;
+	line-height:36px;
+	outline:medium none;
+	padding:0 0 0 35px;
+	text-shadow:1px 1px 0 white;
+	width:385px;
+    background:url(/Images/Application/search.png) #fff 8px no-repeat; 
 }
-
-fieldset {
-    border: none;
-}
-
-#searchInputContainer {
-    /* This div contains the transparent search box */
-    width: 420px;
-    height: 36px;
-    background-color: #fff;
-    float: left;
-    margin-right: 12px;
-}
-
-#search-textbox {
-    /* The search text box. */
-    border: 1px solid #CCC;
-    color: #888888;
-    float: left;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 15px;
-    height: 34px;
-    line-height: 36px;
-    outline: medium none;
-    padding: 0 0 0 35px;
-    text-shadow: 1px 1px 0 white;
-    width: 385px;
-}
-
-
 /* The submit button */
-
-
-#submitButton {
-    border: 1px solid #ed5353;
-    font-size: 14px;
-    font-family: arial, helvetica, sans-serif;
-    text-decoration: none;
-    display: inline-block;
-    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-    font-weight: bold;
-    color: #FFFFFF;
-    background-color: #dc3b3b;
-    cursor: pointer;
-    outline: none;
-    height: 36px;
-    padding: 0px 10px;
+#submitButton{
+	 border:1px solid #ed5353; 
+	 font-size:14px;
+	 font-family:arial, helvetica, sans-serif; 
+	 text-decoration:none; 
+	 display:inline-block;
+	 text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+	 font-weight:bold; 
+	 color: #FFFFFF;
+	 background-color: #dc3b3b; 
+	 cursor:pointer;
+	 outline:none;
+	 height: 36px;
+	 padding: 0px 10px;
 }
 
-    #submitButton:hover {
-        border: 1px solid #ed5353;
-        background-color: #c32828;
-    }
-
+#submitButton:hover{
+	 border:1px solid #ed5353;
+	 background-color: #c32828; 
+}
 /* Giving Credit */
-
-p.credit {
-    margin: 20px 0;
-    text-align: center;
-    color: #ccc;
+p.credit{
+	margin:20px 0;
+	text-align:center;
+	color:#ccc;
 }
-
-.clear {
-    clear: both;
+.clear{
+	clear:both;
 }
 
 /** Login Page Start **/
 
 h2 {
-    font-size: 20px;
-    color: #dc3b3b;
-    padding: 0 0 13px 0;
-    border-bottom: 1px solid #e0e0e0;
-    font: 13px;
+	font-size: 20px;
+	color: #dc3b3b;
+	padding: 0 0 13px 0;
+	border-bottom: 1px solid #e0e0e0;
+	font: 13px;
 }
-
 #box_bg {
-    border: 1px solid #ccc;
-    background: #efefef;
-    width: 540px;
-    display: block;
-    margin: auto 0 auto;
-    /*-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;*/
-    /*border-radius: 5px;*/
-    box-shadow: 0px 0px 2px #efefef, inset 0px -3px 0px #e6e6e6;
+	border: 1px solid #ccc;
+	background: #efefef;
+	width: 540px;
+	display: block;
+	margin:auto 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 2px #efefef, inset 0px -3px 0px #e6e6e6;
 }
-
 #content {
-    padding: 23px 28px;
+	padding: 23px 28px;
 }
-
 .social {
-    padding: 13px 0 0 0;
-    height: 75px;
-    color: #666;
-    font-size: 12px;
+	padding: 13px 0 0 0;
+	height: 75px;
+	color:#666;
+	font-size:12px;
 }
-
-    .social a {
-        text-decoration: none;
-    }
+.social a{
+	text-decoration: none;
+}
 /** Buttons **/
 .twitter {
-    background: url(/Images/Application/twitter_btn.png) no-repeat;
-    height: 32px;
-    width: 157px;
-    display: block;
-    float: left;
-    margin-top: 10px;
+	background: url(/Images/Application/twitter_btn.png) no-repeat;
+	height: 32px;
+	width: 157px;
+	display: block;
+	float: left;
+	margin-top: 10px;
 }
-
-    .twitter:hover {
-        background: url(/Images/Application/twitter_btn.png) no-repeat;
-        background-position: 0 -32px;
-    }
-
-    .twitter:active {
-        margin-top: 11px;
-    }
-
+.twitter:hover {
+	background: url(/Images/Application/twitter_btn.png) no-repeat;
+	background-position: 0 -32px;
+}
+.twitter:active {
+	margin-top: 11px
+}
 .btn_1 {
-    padding: 8px 0 0 35px;
-    text-shadow: -1px -1px 0px #0083b3;
-    color: #fff;
-    font-weight: bold;
-    font-size: 12px;
-    height: 32px;
-    display: block;
+	padding: 8px 0 0 35px;
+	text-shadow: -1px -1px 0px #0083b3;
+	color: #fff;
+	font-weight: bold;
+	font-size: 12px;
+	height: 32px;
+	display: block;
 }
-
 .fb {
-    background: url(/Images/Application/fb_btn.png) no-repeat;
-    height: 32px;
-    width: 157px;
-    display: block;
-    float: right;
-    margin-top: 10px;
+	background: url(/Images/Application/fb_btn.png) no-repeat;
+	height: 32px;
+	width: 157px;
+	display: block;
+	float: right;
+	margin-top: 10px;
 }
-
-    .fb:hover {
-        background: url(/Images/Application/fb_btn.png) no-repeat;
-        background-position: 0 -32px;
-    }
-
-    .fb:active {
-        margin-top: 11px;
-    }
-
+.fb:hover {
+	background: url(/Images/Application/fb_btn.png) no-repeat;
+	background-position: 0 -32px;
+}
+.fb:active {
+	margin-top: 11px
+}
 .btn_2 {
-    padding: 8px 0 0 31px;
-    text-shadow: -1px -1px 0px #366c96;
-    color: #fff;
-    font-weight: bold;
-    font-size: 12px;
-    height: 32px;
-    display: block;
+	padding: 8px 0 0 31px;
+	text-shadow: -1px -1px 0px #366c96;
+	color: #fff;
+	font-weight: bold;
+	font-size: 12px;
+	height: 32px;
+	display: block;
 }
-
 .google {
-    background: url(/Images/Application/google_btn.png) no-repeat;
-    height: 32px;
-    width: 157px;
-    display: block;
-    float: right;
-    margin-top: 10px;
-    margin-right: 7px;
+	background: url(/Images/Application/google_btn.png) no-repeat;
+	height: 32px;
+	width: 157px;
+	display: block;
+	float: right;
+	margin-top: 10px;
+	margin-right: 7px;
 }
-
-    .google:hover {
-        background: url(/Images/Application/google_btn.png) no-repeat;
-        background-position: 0 -32px;
-    }
-
-    .google:active {
-        margin-top: 11px;
-    }
-
+.google:hover {
+	background: url(/Images/Application/google_btn.png) no-repeat;
+	background-position: 0 -32px;
+}
+.google:active {
+	margin-top: 11px
+}
 .btn_3 {
-    padding: 8px 0 0 35px;
-    text-shadow: -1px -1px 0px #ca3219;
-    color: #fff;
-    font-weight: bold;
-    font-size: 12px;
-    height: 32px;
-    display: block;
+	padding: 8px 0 0 35px;
+	text-shadow: -1px -1px 0px #ca3219;
+	color: #fff;
+	font-weight: bold;
+	font-size: 12px;
+	height: 32px;
+	display: block;
 }

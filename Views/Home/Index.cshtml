@@ -69,11 +69,21 @@
             $('#popup').hide();
         }
         else {
-            $('.popup_open').click(function () {
-                $('#popup').popup({
-                    'autoopen': true
-                });
-            });
+            $.ajax({
+                url: '/Constituency/GetConstituency',
+                type: "GET",
+                dataType: "json",
+                data: { query: $('#search-textbox').val() },
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert('No data found');
+                    }
+                    else {
+                        $('#popup').popup({ 'autoopen': true });
+                        $('#popup').show('slow').delay(2000);
+                    }
+                }
+            })
         }
     }
 
@@ -132,9 +142,9 @@
         FB.login(function (response) {
             FB.api('/me', function (response) {
                 if (response.name) {
-                    var picture = "http://graph.facebook.com/" + response.id + "/picture";
-                    var name = response.name;
                     var email = response.email;
+                    var name = response.name;
+                    var picture = "http://graph.facebook.com/" + response.id + "/picture";
 
                     if (email == undefined) {
                         alert("Please allow access to email.");
@@ -143,7 +153,19 @@
                         });
                     }
                     else {
-                        alert("Success");
+                        $.ajax({
+                            url: '/Home/SaveMember',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: JSON.stringify({ email: email, name: name, picture: picture }),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                if (data.RedirectUrl) {
+                                    //window.location = data.RedirectUrl + '?key=' + $.base64.encode($('#search-textbox').val());
+                                    window.location = data.RedirectUrl + '?key=' + $('#search-textbox').val();
+                                }
+                            }
+                        });
                     }
                 }
             })
@@ -187,6 +209,7 @@
             }
         }
     }
+
     function getEmail() {
         gapi.client.load('oauth2', 'v2', function () {
             var request = gapi.client.oauth2.userinfo.get();
@@ -196,65 +219,34 @@
 
     function getEmailCallback(obj) {
         //alert(Object.keys(obj));
-
-        var picture = obj['picture'];
-        var email = '';
         var name = '';
+        var email = '';
+        var picture = obj['picture'];
+
         if (obj['email']) {
             email = obj['email'];
         }
         if (obj['name']) {
             name = obj['name'];
         }
-        alert("Success");
+        $.ajax({
+            url: 'Home/SaveMember',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({ email: email, name: name, picture: picture }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data.RedirectUrl) {
+                    window.location = data.RedirectUrl + '?key=' + $('#search-textbox').val();
+                }
+            }
+        });
     }
-</script>
-
-@*Twitter Login*@
-<script>
-    //function twitterLogin() {
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: 'https://api.twitter.com/oauth/authenticate?oauth_token=pbSxgMsYX8UDkCw8P088eU1zNAflp2Lu5hvhAtY&force_login=false',
-    //        //data: { 'oauth_token': 'pbSxgMsYX8UDkCw8P088eU1zNAflp2Lu5hvhAtY', 'force_login': 'false' },
-    //        dataType: 'json',
-    //        success: function (jsonData) {
-    //            //This function gets called after posting to the server
-    //            alert('Success')
-    //        },
-    //        error: function () {
-    //            alert('Fail');
-    //        }
-    //    });
-    //}
 </script>
 
 @{
     ViewBag.Title = "Welcome";
 }
-@*<div id="page">
-
-    <h1>Venturepact</h1>
-
-    <div id="searchForm" class="well">
-        @Html.TextBox("search-textbox")
-        <input type="submit" class="popup_open btn btn-large btn-success" value="Search" id="submitButton" />
-        <%=Html.TextBoxFor(m => m.title)%>                  
-    </div>
-</div>
-<div id="popup" style="display: none; margin: 1em; outline: none; z-index: 9999;">
-    <div id="box_bg">
-        <div id="content">
-            <h2>Sign In</h2>
-            <div class="social">
-                Sign in using social network:<br />
-                <div id="twitterLogin" class="twitter" onclick=""><a href="JavaScript:newPopup('https://api.twitter.com/oauth/authenticate?oauth_token=inQZlr5iHK6ESYKREeCnnSD9VO46RVo5jD5xvqrgJM&force_login=false');" class="btn_1">Login with Twitter</a></div>
-                <div id="fbLogin" class="fb" onclick="fbLogin()"><a id="" href="#" class="btn_2">Login with Facebook</a></div>
-                <div id="googleLogin" class="google" onclick=""><a href="#" class="btn_3">Login with Google</a></div>
-            </div>
-        </div>
-    </div>
-</div>*@
 <div id="main">
     <div id="page">
         <h1>Venturepact</h1>

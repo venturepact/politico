@@ -69,11 +69,21 @@
             $('#popup').hide();
         }
         else {
-            $('.popup_open').click(function () {
-                $('#popup').popup({
-                    'autoopen': true
-                });
-            });
+            $.ajax({
+                url: '/Constituency/GetConstituency',
+                type: "GET",
+                dataType: "json",
+                data: { query: $('#search-textbox').val() },
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert('No data found');
+                    }
+                    else {
+                        $('#popup').popup({ 'autoopen': true });
+                        $('#popup').show('slow').delay(2000);
+                    }
+                }
+            })
         }
     }
 
@@ -83,7 +93,7 @@
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '722160411129816',
+            appId: '722160411129816', @*420336934736385, 722160411129816*@
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true  // parse XFBML
@@ -132,9 +142,9 @@
         FB.login(function (response) {
             FB.api('/me', function (response) {
                 if (response.name) {
-                    var picture = "http://graph.facebook.com/" + response.id + "/picture";
-                    var name = response.name;
                     var email = response.email;
+                    var name = response.name;
+                    var picture = "http://graph.facebook.com/" + response.id + "/picture";
 
                     if (email == undefined) {
                         alert("Please allow access to email.");
@@ -143,7 +153,19 @@
                         });
                     }
                     else {
-                        alert("Success");
+                        $.ajax({
+                            url: '/Home/SaveMember',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: JSON.stringify({ email: email, name: name, picture: picture }),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                if (data.RedirectUrl) {
+                                    //window.location = data.RedirectUrl + '?key=' + $.base64.encode($('#search-textbox').val());
+                                    window.location = data.RedirectUrl + '?key=' + $('#search-textbox').val();
+                                }
+                            }
+                        });
                     }
                 }
             })
@@ -169,6 +191,7 @@
             'callback': 'signinCallback',
             'approvalprompt': 'force',
             'clientid': '1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com',
+            @*1022821916113-feiumnc8leuqbvf2avat953k69d0qh5v.apps.googleusercontent.com, 1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com*@
             'cookiepolicy': 'single_host_origin',
             'height': 'short',
             'requestvisibleactions': 'http://schemas.google.com/AddActivity',
@@ -197,17 +220,31 @@
 
     function getEmailCallback(obj) {
         //alert(Object.keys(obj));
-
-        var picture = obj['picture'];
-        var email = '';
         var name = '';
+        var email = '';
+        var picture = '';
+
         if (obj['email']) {
             email = obj['email'];
         }
         if (obj['name']) {
             name = obj['name'];
         }
-        alert("Success");
+        if (obj['picture']) {
+            name = obj['picture'];
+        }
+        $.ajax({
+            url: 'Home/SaveMember',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({ email: email, name: name, picture: picture }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data.RedirectUrl) {
+                    window.location = data.RedirectUrl + '?key=' + $('#search-textbox').val();
+                }
+            }
+        });
     }
 </script>
 

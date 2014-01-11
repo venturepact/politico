@@ -111,7 +111,6 @@ body {
 	margin: 0;
 	background: repeat-x center top;
 	margin-top: 10px;
-	margin-bottom: 10px;
 }
 .list_menu{
 	float:left	
@@ -148,6 +147,12 @@ body {
 }
 .menu_nav ul li span{
 	color:#ffc6c6;
+	}
+.menu_nav .welcome{
+	width: 152px;
+	}
+.menu_nav .logout{
+	margin-top:8px;
 	}
 .user_img{
 	float:left;

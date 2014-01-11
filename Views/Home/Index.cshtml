@@ -93,7 +93,7 @@
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '722160411129816',
+            appId: '722160411129816', @*420336934736385, 722160411129816*@
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true  // parse XFBML
@@ -191,6 +191,7 @@
             'callback': 'signinCallback',
             'approvalprompt': 'force',
             'clientid': '1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com',
+            @*1022821916113-feiumnc8leuqbvf2avat953k69d0qh5v.apps.googleusercontent.com, 1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com*@
             'cookiepolicy': 'single_host_origin',
             'height': 'short',
             'requestvisibleactions': 'http://schemas.google.com/AddActivity',
@@ -221,13 +222,16 @@
         //alert(Object.keys(obj));
         var name = '';
         var email = '';
-        var picture = obj['picture'];
+        var picture = '';
 
         if (obj['email']) {
             email = obj['email'];
         }
         if (obj['name']) {
             name = obj['name'];
+        }
+        if (obj['picture']) {
+            picture = obj['picture'];
         }
         $.ajax({
             url: 'Home/SaveMember',
@@ -261,7 +265,7 @@
                     <h2>Sign In</h2>
                     <div class="social">
                         Sign in using social network :<br />
-                        <div id="twitterLogin" class="twitter" onclick=""><a href="JavaScript:newPopup('https://api.twitter.com/oauth/authenticate?oauth_token=912872282-MOZkTtOBZeszuDps6KtyMPnZdQLvoij2MF3vJySD&force_login=false');" class="btn_1">Login with Twitter</a></div>
+                        <div id="twitterLogin" class="twitter"><span class="btn_1">@Html.ActionLink("Login with Twitter", "Login")</span></div>
                         <div id="fbLogin" class="fb" onclick="fbLogin()"><a id="" href="#" class="btn_2">Login with Facebook</a></div>
                         <div id="googleLogin" class="google" onclick=""><a href="#" class="btn_3">Login with Google</a></div>
                     </div>
@@ -270,9 +274,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function newPopup(url) {
-        popupWindow = window.open(
-            url, 'popUpWindow', 'height=400,width=350,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-    }
-</script>

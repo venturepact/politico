@@ -19,12 +19,12 @@ namespace Politico
             //    clientSecret: "");
 
             //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "hzUxEkG8gkfoGMkvP17x0w",
-            //    consumerSecret: "");
+            //    consumerKey: "KcYMu5YzGllcA5tNfSWQ",
+            //    consumerSecret: "PGcd4ZlTxd3eAj4CFiFXEyHE3tnONGz2Ihf11KJTSA");
 
             //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "722160411129816",
-            //    appSecret: "4dd4e3b32a1d3ea9dde5cb4d5998c91c");
+            //    appId: "420336934736385",
+            //    appSecret: "586ce19792ec7ed0fe79300004a99534");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }

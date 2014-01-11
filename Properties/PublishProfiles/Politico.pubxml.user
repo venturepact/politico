@@ -44,7 +44,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:19</publishTime>
     </File>
     <File Include="bin/Politico.dll">
-      <publishTime>01/09/2014 16:04:48</publishTime>
+      <publishTime>01/11/2014 10:55:25</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>12/30/2013 16:41:20</publishTime>
@@ -89,13 +89,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2013 12:07:20</publishTime>
     </File>
     <File Include="Content/Application/home-css.css">
-      <publishTime>01/09/2014 15:00:45</publishTime>
+      <publishTime>01/10/2014 15:46:25</publishTime>
     </File>
     <File Include="Content/Application/liquid-slider.css">
       <publishTime>01/09/2014 15:02:30</publishTime>
     </File>
     <File Include="Content/Application/styles.css">
-      <publishTime>01/09/2014 15:15:28</publishTime>
+      <publishTime>01/10/2014 16:11:14</publishTime>
     </File>
     <File Include="Content/googlefont-webfont.eot">
       <publishTime>01/06/2014 15:30:16</publishTime>
@@ -361,6 +361,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/Application/radio.png">
       <publishTime>01/08/2014 11:13:20</publishTime>
     </File>
+    <File Include="Images/Application/search.png">
+      <publishTime>01/10/2014 16:04:45</publishTime>
+    </File>
     <File Include="Images/Application/search_btn.gif">
       <publishTime>01/06/2014 12:58:50</publishTime>
     </File>
@@ -426,6 +429,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/Application/jquery.accordion.js">
       <publishTime>01/08/2014 12:59:58</publishTime>
+    </File>
+    <File Include="Scripts/Application/jquery.base64.js">
+      <publishTime>01/10/2014 12:47:23</publishTime>
+    </File>
+    <File Include="Scripts/Application/jquery.base64.min.js">
+      <publishTime>01/10/2014 12:47:23</publishTime>
     </File>
     <File Include="Scripts/Application/jquery.cookie.js">
       <publishTime>01/08/2014 12:59:56</publishTime>
@@ -536,10 +545,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:01</publishTime>
     </File>
     <File Include="Views/Home/Home.cshtml">
-      <publishTime>01/09/2014 13:52:09</publishTime>
+      <publishTime>01/10/2014 14:59:55</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/09/2014 16:32:12</publishTime>
+      <publishTime>01/11/2014 10:54:58</publishTime>
     </File>
     <File Include="Views/MP/Create.cshtml">
       <publishTime>01/04/2014 15:58:49</publishTime>
@@ -605,10 +614,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:01</publishTime>
     </File>
     <File Include="Views/Shared/_HomePageLayout.cshtml">
-      <publishTime>01/09/2014 13:50:22</publishTime>
+      <publishTime>01/10/2014 16:49:11</publishTime>
     </File>
     <File Include="Views/Shared/_LandingPageLayout.cshtml">
-      <publishTime>01/09/2014 13:44:57</publishTime>
+      <publishTime>01/10/2014 14:59:47</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>01/08/2014 16:02:25</publishTime>
@@ -638,7 +647,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/09/2014 15:56:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/09/2014 16:38:59</publishTime>
+      <publishTime>01/11/2014 10:55:28</publishTime>
     </File>
   </ItemGroup>
 </Project>

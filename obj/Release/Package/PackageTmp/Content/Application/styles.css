@@ -13,7 +13,7 @@ body{
 #main{
 	width:100%;
 	margin:0;
-	background-image:url(/images/Application/independence.jpg); background-repeat:no-repeat;
+	background-image:url(/Images/Application/independence.jpg); background-repeat:no-repeat;
 }
 #page{
 	/* The main container div */
@@ -24,7 +24,7 @@ body{
 }
 h1{
 	font-family:Corbel,'Myriad Pro',Arial, Helvetica, sans-serif;
-	background:url('/images/Application/logo.png') no-repeat center top;
+	background:url('/Images/Application/logo.png') no-repeat center top;
 	text-indent:-9999px;
 	overflow:hidden;
 	height:105px;
@@ -63,6 +63,7 @@ fieldset{
 	padding:0 0 0 35px;
 	text-shadow:1px 1px 0 white;
 	width:385px;
+    background:url(/Images/Application/search.png) #fff 8px no-repeat; 
 }
 /* The submit button */
 #submitButton{
@@ -129,7 +130,7 @@ h2 {
 }
 /** Buttons **/
 .twitter {
-	background: url(/images/Application/twitter_btn.png) no-repeat;
+	background: url(/Images/Application/twitter_btn.png) no-repeat;
 	height: 32px;
 	width: 157px;
 	display: block;
@@ -137,7 +138,7 @@ h2 {
 	margin-top: 10px;
 }
 .twitter:hover {
-	background: url(/images/Application/twitter_btn.png) no-repeat;
+	background: url(/Images/Application/twitter_btn.png) no-repeat;
 	background-position: 0 -32px;
 }
 .twitter:active {
@@ -153,7 +154,7 @@ h2 {
 	display: block;
 }
 .fb {
-	background: url(/images/Application/fb_btn.png) no-repeat;
+	background: url(/Images/Application/fb_btn.png) no-repeat;
 	height: 32px;
 	width: 157px;
 	display: block;
@@ -161,7 +162,7 @@ h2 {
 	margin-top: 10px;
 }
 .fb:hover {
-	background: url(/images/Application/fb_btn.png) no-repeat;
+	background: url(/Images/Application/fb_btn.png) no-repeat;
 	background-position: 0 -32px;
 }
 .fb:active {
@@ -177,7 +178,7 @@ h2 {
 	display: block;
 }
 .google {
-	background: url(/images/Application/google_btn.png) no-repeat;
+	background: url(/Images/Application/google_btn.png) no-repeat;
 	height: 32px;
 	width: 157px;
 	display: block;
@@ -186,7 +187,7 @@ h2 {
 	margin-right: 7px;
 }
 .google:hover {
-	background: url(/images/Application/google_btn.png) no-repeat;
+	background: url(/Images/Application/google_btn.png) no-repeat;
 	background-position: 0 -32px;
 }
 .google:active {

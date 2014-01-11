@@ -81,7 +81,6 @@ body {
 #formsearch {
 	margin: 0;
 	height: 36px;
-	margin-top: 30px
 }
 #formsearch span {
 	display: block;
@@ -94,7 +93,7 @@ body {
 	margin: 0;
 	padding: 0px 6px 0px;
 	float: left;
-	width: 181px;
+	width:194px;
 	border: none;
 	background: none;
 	font: normal 12px/1.5em Arial, Helvetica, sans-serif;
@@ -111,23 +110,30 @@ body {
 	float: right;
 	margin: 0;
 	background: repeat-x center top;
-	margin-top: 4px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
+.list_menu{
+	float:left	
+	}
 .menu_nav ul {
 	list-style: none;
 }
 .menu_nav ul li {
 	padding: 0;
 	float: left;
-}
-.menu_nav ul li a {
 	display: block;
 	margin: 0;
-	padding: 10px 20px 14px;
+	padding: 14px 8px 14px;
 	color: #fff;
 	text-decoration: none;
-	font-size: 14px;
+	font-size: 11px;
 	height: 18px;
+}
+.menu_nav ul li a {
+	color: #fff;
+	text-decoration: none;
+
 }
 .menu_nav ul li a.last {
 	padding-right: 0px;
@@ -140,6 +146,19 @@ body {
 	color: #ffc6c6;
 	cursor: pointer;
 }
+.menu_nav ul li span{
+	color:#ffc6c6;
+	}
+.user_img{
+	float:left;
+
+}
+.user_img img{
+	width:35px;
+	height:40px;
+	padding: 2px;
+	background: #fff;
+	}
 .header_strip {
 	background: #3c4e57;
 	height: 64px;
@@ -692,4 +711,5 @@ ul.rating li.five a:hover {
 	padding: 23px 0px;
 	color:#98a5ac;	
 }
+
 	

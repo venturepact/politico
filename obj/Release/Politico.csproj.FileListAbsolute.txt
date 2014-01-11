@@ -1,5 +1,7 @@
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Politico.dll
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Politico.pdb
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.dll
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.pdb
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Antlr3.Runtime.dll
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.AspNet.dll
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.Core.dll
@@ -44,5 +46,4 @@ C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNe
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.OAuth.xml
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.dll
-C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.pdb
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.csprojResolveAssemblyReference.cache

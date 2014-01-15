@@ -125,9 +125,9 @@
           <ScalarProperty Name="lastName" ColumnName="lastName" />
           <ScalarProperty Name="qualification" ColumnName="qualification" />
           <ScalarProperty Name="electedYear" ColumnName="electedYear" />
-          <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="image1" ColumnName="image1" />
+          <ScalarProperty Name="MPImage" ColumnName="MPImage" />
+          <ScalarProperty Name="partyImage" ColumnName="partyImage" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

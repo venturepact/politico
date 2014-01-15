@@ -37,6 +37,11 @@ namespace Politico.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                if (returnUrl == null)
+                {
+                    returnUrl = "/Account/Manage";
+                    Session["admin"] = model.UserName;
+                }
                 return RedirectToLocal(returnUrl);
             }
 
@@ -53,8 +58,7 @@ namespace Politico.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
-            //return RedirectToAction("Index", "Home");
+            Session["admin"] = null;            
             return RedirectToAction("Login", "Account");
         }
 

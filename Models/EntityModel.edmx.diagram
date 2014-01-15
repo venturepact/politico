@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="PoliticoModel.Member" Width="1.5" PointX="4.0308785215163967" PointY="16.419224612610055" />
         <EntityTypeShape EntityType="PoliticoModel.Question" Width="1.5" PointX="11.29626970891667" PointY="18.023079239774066" />
         <EntityTypeShape EntityType="PoliticoModel.Result" Width="1.5" PointX="2.8735251514583475" PointY="11.498548915376212" />
-        <EntityTypeShape EntityType="PoliticoModel.Sector" Width="1.5" PointX="0.86280751454774651" PointY="1.018661812422174" />
+        <EntityTypeShape EntityType="PoliticoModel.Sector" Width="1.5" PointX="5" PointY="1" />
         <AssociationConnector Association="PoliticoModel.FK_Answer_Member" />
         <AssociationConnector Association="PoliticoModel.FK_Answer_Question" />
         <AssociationConnector Association="PoliticoModel.FK_Comment_Member" />

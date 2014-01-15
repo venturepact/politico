@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DotNetOpenAuth.AspNet.Clients;
+using Politico.Models;
 
 namespace Politico.Controllers
 {
@@ -12,7 +13,7 @@ namespace Politico.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-           
+
             return View("Index", "_LandingPageLayout");
         }
 
@@ -40,7 +41,7 @@ namespace Politico.Controllers
                 ViewBag.Name = Session["name"].ToString();
                 ViewBag.Picture = Session["picture"].ToString();
 
-                return View("Home", "_HomePageLayout");                
+                return View("Home", "_HomePageLayout");
             }
             else
             {
@@ -53,19 +54,21 @@ namespace Politico.Controllers
         {
             Session["email"] = email;
             Session["name"] = name;
-            if(picture.Length > 0)
+            if (picture.Length > 0)
                 Session["picture"] = picture;
             else
                 Session["picture"] = "/images/Application/placeholder.png";
-            
-            return Json(new            
-            {                
+
+            return Json(new
+            {
                 RedirectUrl = Url.Action("Home", "Home")
             });
-        }                      
-        
-        public ActionResult Login()
+        }
+
+        public ActionResult Login(string ID)
         {
+            Session["Constituency"] = ID;
+
             DotNetOpenAuth.AspNet.Clients.TwitterClient client = new TwitterClient("KcYMu5YzGllcA5tNfSWQ", "PGcd4ZlTxd3eAj4CFiFXEyHE3tnONGz2Ihf11KJTSA");
 
             UrlHelper helper = new UrlHelper(this.ControllerContext.RequestContext);
@@ -90,21 +93,30 @@ namespace Politico.Controllers
 
             if (Session["email"] != null)
             {
-                ViewBag.Constituency = "";
+                ViewBag.Constituency = Session["Constituency"];
                 ViewBag.Name = Session["name"];
-                ViewBag.Picture = Session["picture"];            
+                ViewBag.Picture = Session["picture"];
 
                 return View("Home", "_HomePageLayout");
             }
             else
             {
                 return RedirectToAction("Index");
-            }            
+            }
+        }
+
+        [HttpGet]
+        public JsonResult LoadMpProfile(string constituency)
+        {
+            PoliticoEntities entity = new PoliticoEntities();
+            var result = entity.FindMPOfConstituency(constituency).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult Logout()
         {
+            Session["Constituency"] = null;
             Session["email"] = null;
             Session["name"] = null;
             Session["picture"] = null;

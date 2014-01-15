@@ -18,8 +18,15 @@ namespace Politico.Controllers
 
         public ActionResult Index()
         {
-            var questions = db.Questions.Include(q => q.Party);
-            return View(questions.ToList());
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                var questions = db.Questions.Include(q => q.Party);
+                return View(questions.ToList());
+            }            
         }
 
         //

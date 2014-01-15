@@ -18,7 +18,14 @@ namespace Politico.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Sectors.ToList());
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View(db.Sectors.ToList());
+            }                   
         }
 
         //

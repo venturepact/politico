@@ -49,13 +49,17 @@
                         <div class="user_img">
                             <img src='@ViewBag.Picture' alt="" />
                         </div>
+
                         <div class="list_menu">
                             <ul>
-                                <li><span>Welcome </span><b>@ViewBag.Name</b></li>
-                                <li><a onclick="Logout()" class="last">Logout</a></li>
+                                <li class="welcome"><span>Welcome </span>
+                                    <br>
+                                    @ViewBag.Name</li>
+                                <li class="logout">
+                                    <a onclick="Logout()">
+                                        <img src="/images/Application/logout_btn.png" title="Logout" width="21" height="21" alt="" /></a></li>
                             </ul>
                         </div>
-
                     </div>
                     <div class="searchform">
                         <form id="formsearch" name="formsearch" method="post" action="#">

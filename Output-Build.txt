@@ -1,3 +1,0 @@
-﻿1>------ Build started: Project: Politico, Configuration: Debug Any CPU ------
-1>  Politico -> C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\Politico.dll
-========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

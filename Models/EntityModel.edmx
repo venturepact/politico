@@ -295,7 +295,7 @@
           <Parameter Name="MPID" Type="bigint" Mode="In" />
         </Function>
         <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="constituencyID" Type="bigint" Mode="In" />
+          <Parameter Name="constituency" Type="varchar" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -357,10 +357,10 @@
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
           <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
-            <Parameter Name="MPID" Mode="In" Type="Int64" />
+          <Parameter Name="MPID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
-            <Parameter Name="constituencyID" Mode="In" Type="Int64" />
+          <Parameter Name="constituency" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Party">
@@ -625,9 +625,9 @@
           <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="electedYear" Nullable="true" />
-          <Property Type="String" Name="image" Nullable="true" />
           <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="image1" Nullable="true" />
+          <Property Type="String" Name="MPImage" Nullable="true" />
+          <Property Type="String" Name="partyImage" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -752,16 +752,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
-            <ResultMapping>
+          <ResultMapping>
               <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="middleName" ColumnName="middleName" />
                 <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="qualification" ColumnName="qualification" />
                 <ScalarProperty Name="electedYear" ColumnName="electedYear" />
-                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="MPImage" ColumnName="MPImage" />
+                <ScalarProperty Name="partyImage" ColumnName="partyImage" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -87,7 +87,7 @@ body {
 	margin: 6px 0;
 	padding: 0;
 	float: left;
-	background: #fff url(/Images/Application/search.gif) no-repeat top left;
+	background: #fff;
 }
 #formsearch input.editbox_search {
 	margin: 0;
@@ -146,7 +146,7 @@ body {
 	cursor: pointer;
 }
 .menu_nav ul li span{
-	color:#ffc6c6;
+	color:#3C4E57;
 	}
 .menu_nav .welcome{
 	width: 152px;
@@ -198,11 +198,56 @@ body {
 	float: left;
 	width: 735px;
 }
+.party_member .heading_all {
+	float: left;
+	width: 100%;
+	margin: 10px 0px 0px;
+}
+.heading_all .parties_heading {
+	width: 13%;
+	float: left;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.parties_heading h2 {
+	font-family: 'robotolight';
+	letter-spacing: -1px;
+	color: #3c4e57;
+	font-size: 30px;
+	padding-bottom: 10px;
+}
+.heading_all .mp_heading{
+	width: 40%;
+	float: left;
+	border-right: 1px solid #ccc;
+	padding-left: 13px;
+	border-bottom: 1px solid #ccc;
+	}
+.mp_heading h2{
+	font-family: 'robotolight';
+	letter-spacing: -1px;
+	color: #dc3b3b;
+	font-size: 30px;
+	padding-bottom: 10px;
+	}
+.heading_all .mpr_heading{
+	width: 43%;
+	float: left;
+	padding-left: 12px;
+	border-bottom: 1px solid #ccc;
+	}
+.mpr_heading h2{
+	font-family: 'robotolight';
+	letter-spacing: -1px;
+	color: #3c4e57;
+	font-size: 30px;
+	padding-bottom: 10px;
+	}
 .content .left .left_inner {
 	float: left;
 	width: 100%;
 	border-bottom: 2px solid #dc3b3b;
-	margin:10px 0px;
+	margin:0px;
 }
 .left .party_member{
 	float:left;
@@ -213,6 +258,7 @@ body {
 	float: left;
 	border-right: 1px solid #ccc;
 	margin-right: 12px;
+	margin-top: 10px;
 }
 .parties h2 {
 	font-family: 'robotolight';
@@ -238,6 +284,7 @@ body {
 	float: left;
 	border-right: 1px solid #ccc;
 	margin-right: 14px;
+	margin-top: 10px;
 }
 .mp_detail_outer {
 	float: left;
@@ -273,6 +320,7 @@ body {
 .mpr {
 	width: 40%;
 	float: left;
+	margin-top: 10px;
 }
 .mpr h2 {
 	font-family: 'robotolight';
@@ -651,8 +699,6 @@ ul.rating li.five a:hover {
 	width:20%;
 	line-height: 20px;
 }
-
-
 .accordion {
 	display:block;
 	background: #dc3b3b;
@@ -660,7 +706,7 @@ ul.rating li.five a:hover {
 	font-size: 14px;
 	padding: 5px;
 	color: #fff;
-	margin:10px 0px 0px;
+	margin:11px 0px 0px;
 	cursor:pointer;
 }
 .accordion-open {

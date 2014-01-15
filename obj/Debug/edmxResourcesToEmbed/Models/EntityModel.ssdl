@@ -290,6 +290,6 @@
     <Parameter Name="MPID" Type="bigint" Mode="In" />
   </Function>
   <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="constituencyID" Type="bigint" Mode="In" />
+    <Parameter Name="constituency" Type="varchar" Mode="In" />
   </Function>
 </Schema>

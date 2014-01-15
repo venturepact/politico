@@ -59,7 +59,7 @@
       <Parameter Name="MPID" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
-      <Parameter Name="constituencyID" Mode="In" Type="Int64" />
+      <Parameter Name="constituency" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="Party">
@@ -324,8 +324,8 @@
     <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
     <Property Type="Int32" Name="electedYear" Nullable="true" />
-    <Property Type="String" Name="image" Nullable="true" />
     <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-    <Property Type="String" Name="image1" Nullable="true" />
+    <Property Type="String" Name="MPImage" Nullable="true" />
+    <Property Type="String" Name="partyImage" Nullable="true" />
   </ComplexType>
 </Schema>

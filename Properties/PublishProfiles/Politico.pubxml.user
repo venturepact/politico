@@ -13,6 +13,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>12/30/2013 16:41:26</publishTime>
     </File>
+    <File Include="bin/aspsnippets.twitterapi.dll">
+      <publishTime>11/20/2013 03:43:44</publishTime>
+    </File>
     <File Include="bin/DotNetOpenAuth.AspNet.dll">
       <publishTime>12/30/2013 16:41:24</publishTime>
     </File>
@@ -44,7 +47,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:19</publishTime>
     </File>
     <File Include="bin/Politico.dll">
-      <publishTime>01/11/2014 10:55:25</publishTime>
+      <publishTime>01/11/2014 17:07:43</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>12/30/2013 16:41:20</publishTime>
@@ -89,13 +92,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2013 12:07:20</publishTime>
     </File>
     <File Include="Content/Application/home-css.css">
-      <publishTime>01/10/2014 15:46:25</publishTime>
+      <publishTime>01/11/2014 16:14:05</publishTime>
     </File>
     <File Include="Content/Application/liquid-slider.css">
       <publishTime>01/09/2014 15:02:30</publishTime>
     </File>
     <File Include="Content/Application/styles.css">
-      <publishTime>01/10/2014 16:11:14</publishTime>
+      <publishTime>01/11/2014 16:04:39</publishTime>
     </File>
     <File Include="Content/googlefont-webfont.eot">
       <publishTime>01/06/2014 15:30:16</publishTime>
@@ -328,6 +331,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/Application/down.png">
       <publishTime>01/06/2014 15:44:28</publishTime>
     </File>
+    <File Include="Images/Application/down_arrow.png">
+      <publishTime>01/10/2014 13:13:34</publishTime>
+    </File>
     <File Include="Images/Application/fb_btn.png">
       <publishTime>03/14/2012 15:31:26</publishTime>
     </File>
@@ -337,11 +343,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/Application/independence.jpg">
       <publishTime>01/06/2014 09:39:20</publishTime>
     </File>
+    <File Include="Images/Application/left_arrow.png">
+      <publishTime>01/10/2014 13:13:32</publishTime>
+    </File>
     <File Include="Images/Application/loading.gif">
       <publishTime>08/15/2012 20:25:26</publishTime>
     </File>
     <File Include="Images/Application/logo.png">
       <publishTime>01/06/2014 09:32:30</publishTime>
+    </File>
+    <File Include="Images/Application/logout_btn.png">
+      <publishTime>01/11/2014 10:45:56</publishTime>
+    </File>
+    <File Include="Images/Application/master_arrow.png">
+      <publishTime>01/10/2014 13:13:24</publishTime>
     </File>
     <File Include="Images/Application/minus.png">
       <publishTime>01/08/2014 13:41:48</publishTime>
@@ -355,14 +370,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/Application/next.png">
       <publishTime>01/08/2014 16:27:24</publishTime>
     </File>
+    <File Include="Images/Application/placeholder.png">
+      <publishTime>01/10/2014 13:34:12</publishTime>
+    </File>
     <File Include="Images/Application/plus.png">
       <publishTime>01/08/2014 13:42:14</publishTime>
     </File>
     <File Include="Images/Application/radio.png">
       <publishTime>01/08/2014 11:13:20</publishTime>
     </File>
+    <File Include="Images/Application/right_arrow.png">
+      <publishTime>01/10/2014 13:13:28</publishTime>
+    </File>
     <File Include="Images/Application/search.png">
-      <publishTime>01/10/2014 16:04:45</publishTime>
+      <publishTime>01/10/2014 16:06:10</publishTime>
+    </File>
+    <File Include="Images/Application/searchBox.png">
+      <publishTime>12/27/2013 11:17:26</publishTime>
     </File>
     <File Include="Images/Application/search_btn.gif">
       <publishTime>01/06/2014 12:58:50</publishTime>
@@ -372,6 +396,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/Application/twitter_btn.png">
       <publishTime>03/14/2012 14:50:56</publishTime>
+    </File>
+    <File Include="Images/Application/up_arrow.png">
+      <publishTime>01/10/2014 13:13:36</publishTime>
     </File>
     <File Include="Images/Application/venturepact_logo.png">
       <publishTime>12/27/2013 11:10:54</publishTime>
@@ -503,7 +530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:01</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>01/08/2014 16:01:36</publishTime>
+      <publishTime>01/11/2014 11:30:30</publishTime>
     </File>
     <File Include="Views/Account/Manage.cshtml">
       <publishTime>01/08/2014 15:59:43</publishTime>
@@ -548,7 +575,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2014 14:59:55</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/11/2014 10:54:58</publishTime>
+      <publishTime>01/11/2014 16:56:36</publishTime>
     </File>
     <File Include="Views/MP/Create.cshtml">
       <publishTime>01/04/2014 15:58:49</publishTime>
@@ -614,7 +641,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/30/2013 16:41:01</publishTime>
     </File>
     <File Include="Views/Shared/_HomePageLayout.cshtml">
-      <publishTime>01/10/2014 16:49:11</publishTime>
+      <publishTime>01/11/2014 16:37:47</publishTime>
     </File>
     <File Include="Views/Shared/_LandingPageLayout.cshtml">
       <publishTime>01/10/2014 14:59:47</publishTime>
@@ -647,7 +674,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/09/2014 15:56:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/11/2014 10:55:28</publishTime>
+      <publishTime>01/11/2014 17:07:44</publishTime>
     </File>
   </ItemGroup>
 </Project>

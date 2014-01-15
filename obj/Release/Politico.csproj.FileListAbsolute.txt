@@ -47,3 +47,4 @@ C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNe
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\obj\Release\Politico.csprojResolveAssemblyReference.cache
+C:\Users\rajaa\Documents\Visual Studio 2012\Projects\Politico\Politico\bin\aspsnippets.twitterapi.dll

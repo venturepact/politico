@@ -1,5 +1,41 @@
 ﻿@model IEnumerable<Politico.Models.Constituency>
 
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<script>
+
+
+
+</script>
+
+
+<div id="main">
+    <div id="page">
+        <h1>Venturepact</h1>
+        <div id="searchForm" class="well">
+            @Html.TextBox("search-textbox", "", new { placeholder = "Type your constituency" })
+            <input type="submit" class="popup_open btn btn-large btn-success" value="Search" id="submitButton" onclick="isTextEmpty();" />
+            <%=Html.TextBoxFor(m => m.title)%>                  
+        </div>
+        <div id="popup" style="display: none; margin: 1em; outline: none; z-index: 9999;">
+            <div id="box_bg">
+                <div id="content">
+                    <h2>Sign In</h2>
+                    <div class="social">
+                        Sign in using social network :<br />
+                        <div id="twitterLogin" class="twitter"><span class="btn_1">@Html.ActionLink("Login with Twitter", "Login", null, new { @id = "twitter" })</span></div>
+                        <div id="fbLogin" class="fb" onclick="fbLogin()"><a id="" href="#" class="btn_2">Login with Facebook</a></div>
+                        <div id="googleLogin" class="google" onclick=""><a href="#" class="btn_3">Login with Google</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*AUTOCOMPLETE*@
 <script type="text/javascript">
     $(function () {
         function split(val) {
@@ -79,6 +115,9 @@
                         alert('No data found');
                     }
                     else {
+                        var link = "/Home/login/" + $('#search-textbox').val();
+                        $("#twitter").attr('href', link);
+
                         $('#popup').popup({ 'autoopen': true });
                         $('#popup').show('slow').delay(2000);
                     }
@@ -86,14 +125,13 @@
             })
         }
     }
-
 </script>
 
-@*Facebook Login*@
+@*FACEBOOK LOGIN*@
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '722160411129816', @*420336934736385, 722160411129816*@
+            appId: '420336934736385', @*420336934736385, 722160411129816*@
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true  // parse XFBML
@@ -174,8 +212,9 @@
     }
 </script>
 
-@*Google Login*@
+@*GOOGLE LOGIN*@
 <script src="https://apis.google.com/js/client.js"></script>
+
 <script>
     (function () {
         var po = document.createElement('script');
@@ -190,7 +229,7 @@
         gapi.signin.render('googleLogin', {
             'callback': 'signinCallback',
             'approvalprompt': 'force',
-            'clientid': '1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com',
+            'clientid': '1022821916113-feiumnc8leuqbvf2avat953k69d0qh5v.apps.googleusercontent.com',
             @*1022821916113-feiumnc8leuqbvf2avat953k69d0qh5v.apps.googleusercontent.com, 1022821916113-0fi0dbk1lqeinsj901aqp38r7kiams4p.apps.googleusercontent.com*@
             'cookiepolicy': 'single_host_origin',
             'height': 'short',
@@ -247,30 +286,3 @@
         });
     }
 </script>
-
-@{
-    ViewBag.Title = "Welcome";
-}
-<div id="main">
-    <div id="page">
-        <h1>Venturepact</h1>
-        <div id="searchForm" class="well">
-            @Html.TextBox("search-textbox", "", new { placeholder = "Type your constituency" })
-            <input type="submit" class="popup_open btn btn-large btn-success" value="Search" id="submitButton" onclick="isTextEmpty();" />
-            <%=Html.TextBoxFor(m => m.title)%>                  
-        </div>
-        <div id="popup" style="display: none; margin: 1em; outline: none; z-index: 9999;">
-            <div id="box_bg">
-                <div id="content">
-                    <h2>Sign In</h2>
-                    <div class="social">
-                        Sign in using social network :<br />
-                        <div id="twitterLogin" class="twitter"><span class="btn_1">@Html.ActionLink("Login with Twitter", "Login")</span></div>
-                        <div id="fbLogin" class="fb" onclick="fbLogin()"><a id="" href="#" class="btn_2">Login with Facebook</a></div>
-                        <div id="googleLogin" class="google" onclick=""><a href="#" class="btn_3">Login with Google</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Politico.Models;
+using System.Web.Security;
 
 namespace Politico.Controllers
 {
@@ -18,7 +19,14 @@ namespace Politico.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Parties.ToList());
+            if (Session["admin"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View(db.Parties.ToList());
+            }
         }
 
         //
@@ -115,6 +123,6 @@ namespace Politico.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
+        }      
     }
 }

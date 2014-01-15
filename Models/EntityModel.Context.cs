@@ -48,13 +48,13 @@ namespace Politico.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindComment_Result>("FindComment", mPIDParameter);
         }
     
-        public virtual ObjectResult<FindMPOfConstituency_Result> FindMPOfConstituency(Nullable<long> constituencyID)
+        public virtual ObjectResult<FindMPOfConstituency_Result> FindMPOfConstituency(string constituency)
         {
-            var constituencyIDParameter = constituencyID.HasValue ?
-                new ObjectParameter("constituencyID", constituencyID) :
-                new ObjectParameter("constituencyID", typeof(long));
+            var constituencyParameter = constituency != null ?
+                new ObjectParameter("constituency", constituency) :
+                new ObjectParameter("constituency", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindMPOfConstituency_Result>("FindMPOfConstituency", constituencyIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindMPOfConstituency_Result>("FindMPOfConstituency", constituencyParameter);
         }
     }
 }

@@ -76,7 +76,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="rating" Type="decimal" Precision="1" Scale="1" />
+          <Property Name="rating" Type="decimal" Precision="2" Scale="1" />
           <Property Name="comment" Type="varchar" MaxLength="500" />
           <Property Name="sectorID" Type="int" />
           <Property Name="userID" Type="bigint" />
@@ -297,6 +297,23 @@
         <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="constituency" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="FindMPRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MPID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SaveComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rating" Type="decimal" Mode="In" />
+          <Parameter Name="comment" Type="varchar" Mode="In" />
+          <Parameter Name="sectorID" Type="int" Mode="In" />
+          <Parameter Name="loginID" Type="varchar" Mode="In" />
+          <Parameter Name="mpID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SaveMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginID" Type="varchar" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="middleName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="profileImage" Type="varchar(max)" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -359,8 +376,25 @@
           <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
           <Parameter Name="MPID" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
+          <Parameter Name="MPID" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
           <Parameter Name="constituency" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveMember">
+            <Parameter Name="loginID" Mode="In" Type="String" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="middleName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="profileImage" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveComment">
+            <Parameter Name="rating" Mode="In" Type="Decimal" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="sectorID" Mode="In" Type="Int32" />
+            <Parameter Name="loginID" Mode="In" Type="String" />
+            <Parameter Name="mpID" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Party">
@@ -480,7 +514,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Decimal" Name="rating" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
           <Property Type="String" Name="comment1" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="sectorID" />
           <Property Type="Int64" Name="userID" />
@@ -619,14 +653,21 @@
           <Property Type="Int64" Name="ID" Nullable="false" />
           <Property Type="String" Name="comment" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <ComplexType Name="FindMPRating_Result">
+          <Property Type="Int32" Name="sectorID" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+          <Property Type="Decimal" Name="rating" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Int32" Name="noOfUsers" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="FindMPOfConstituency_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
           <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="electedYear" Nullable="true" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="MPImage" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="partyImage" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -751,20 +792,33 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
-          <ResultMapping>
+            <ResultMapping>
               <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="middleName" ColumnName="middleName" />
                 <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="qualification" ColumnName="qualification" />
                 <ScalarProperty Name="electedYear" ColumnName="electedYear" />
-                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="MPImage" ColumnName="MPImage" />
+                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="partyImage" ColumnName="partyImage" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaveMember" FunctionName="PoliticoModel.Store.SaveMember" />
+          <FunctionImportMapping FunctionImportName="SaveComment" FunctionName="PoliticoModel.Store.SaveComment" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

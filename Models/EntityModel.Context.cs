@@ -48,6 +48,15 @@ namespace Politico.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindComment_Result>("FindComment", mPIDParameter);
         }
     
+        public virtual ObjectResult<FindMPRating_Result> FindMPRating(Nullable<long> mPID)
+        {
+            var mPIDParameter = mPID.HasValue ?
+                new ObjectParameter("MPID", mPID) :
+                new ObjectParameter("MPID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindMPRating_Result>("FindMPRating", mPIDParameter);
+        }
+    
         public virtual ObjectResult<FindMPOfConstituency_Result> FindMPOfConstituency(string constituency)
         {
             var constituencyParameter = constituency != null ?
@@ -55,6 +64,56 @@ namespace Politico.Models
                 new ObjectParameter("constituency", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindMPOfConstituency_Result>("FindMPOfConstituency", constituencyParameter);
+        }
+    
+        public virtual int SaveMember(string loginID, string firstName, string middleName, string lastName, string profileImage)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("loginID", loginID) :
+                new ObjectParameter("loginID", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var middleNameParameter = middleName != null ?
+                new ObjectParameter("middleName", middleName) :
+                new ObjectParameter("middleName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var profileImageParameter = profileImage != null ?
+                new ObjectParameter("profileImage", profileImage) :
+                new ObjectParameter("profileImage", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SaveMember", loginIDParameter, firstNameParameter, middleNameParameter, lastNameParameter, profileImageParameter);
+        }
+    
+        public virtual int SaveComment(Nullable<decimal> rating, string comment, Nullable<int> sectorID, string loginID, Nullable<long> mpID)
+        {
+            var ratingParameter = rating.HasValue ?
+                new ObjectParameter("rating", rating) :
+                new ObjectParameter("rating", typeof(decimal));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var sectorIDParameter = sectorID.HasValue ?
+                new ObjectParameter("sectorID", sectorID) :
+                new ObjectParameter("sectorID", typeof(int));
+    
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("loginID", loginID) :
+                new ObjectParameter("loginID", typeof(string));
+    
+            var mpIDParameter = mpID.HasValue ?
+                new ObjectParameter("mpID", mpID) :
+                new ObjectParameter("mpID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SaveComment", ratingParameter, commentParameter, sectorIDParameter, loginIDParameter, mpIDParameter);
         }
     }
 }

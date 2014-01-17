@@ -71,7 +71,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="rating" Type="decimal" Precision="1" Scale="1" />
+    <Property Name="rating" Type="decimal" Precision="2" Scale="1" />
     <Property Name="comment" Type="varchar" MaxLength="500" />
     <Property Name="sectorID" Type="int" />
     <Property Name="userID" Type="bigint" />
@@ -291,5 +291,22 @@
   </Function>
   <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="constituency" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="FindMPRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MPID" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="SaveComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rating" Type="decimal" Mode="In" />
+    <Parameter Name="comment" Type="varchar" Mode="In" />
+    <Parameter Name="sectorID" Type="int" Mode="In" />
+    <Parameter Name="loginID" Type="varchar" Mode="In" />
+    <Parameter Name="mpID" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="SaveMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loginID" Type="varchar" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="middleName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="profileImage" Type="varchar(max)" Mode="In" />
   </Function>
 </Schema>

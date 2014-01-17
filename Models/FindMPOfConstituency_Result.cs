@@ -13,13 +13,14 @@ namespace Politico.Models
     
     public partial class FindMPOfConstituency_Result
     {
+        public long ID { get; set; }
         public string firstName { get; set; }
         public string middleName { get; set; }
         public string lastName { get; set; }
         public string qualification { get; set; }
         public Nullable<int> electedYear { get; set; }
-        public string title { get; set; }
         public string MPImage { get; set; }
+        public string title { get; set; }
         public string partyImage { get; set; }
     }
 }

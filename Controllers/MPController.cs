@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Politico.Models;
+using System.IO;
 
 namespace Politico.Controllers
 {
@@ -56,10 +57,38 @@ namespace Politico.Controllers
         // POST: /MP/Create
 
         [HttpPost]
-        public ActionResult Create(MP mp)
+        public ActionResult Create(MP mp, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file == null)
+                {
+                    ModelState.AddModelError("File", "Please upload your file");
+                }
+                else if (file.ContentLength > 0)
+                {
+                    int MaxContentLength = 1024 * 1024 * 3; //3 MB
+                    string[] AllowedFileExtensions = new string[] { ".jpg", ".gif", ".png", ".pdf" };
+
+                    if (!AllowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+                    {
+                        ModelState.AddModelError("File", "Please file of type: " + string.Join(", ", AllowedFileExtensions));
+                    }
+
+                    else if (file.ContentLength > MaxContentLength)
+                    {
+                        ModelState.AddModelError("File", "Your file is too large, maximum allowed size is: " + MaxContentLength + " MB");
+                    }
+                    else
+                    {
+                        //TO:DO
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Application/MP/"), fileName);
+                        file.SaveAs(path);
+                        mp.image = "~/Images/Application/MP/" + fileName; ;
+                        ModelState.Clear();
+                    }
+                }
                 db.MPs.Add(mp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,10 +118,38 @@ namespace Politico.Controllers
         // POST: /MP/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(MP mp)
+        public ActionResult Edit(MP mp, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file == null)
+                {
+                    ModelState.AddModelError("File", "Please upload your file");
+                }
+                else if (file.ContentLength > 0)
+                {
+                    int MaxContentLength = 1024 * 1024 * 3; //3 MB
+                    string[] AllowedFileExtensions = new string[] { ".jpg", ".gif", ".png", ".pdf" };
+
+                    if (!AllowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+                    {
+                        ModelState.AddModelError("File", "Please file of type: " + string.Join(", ", AllowedFileExtensions));
+                    }
+
+                    else if (file.ContentLength > MaxContentLength)
+                    {
+                        ModelState.AddModelError("File", "Your file is too large, maximum allowed size is: " + MaxContentLength + " MB");
+                    }
+                    else
+                    {
+                        //TO:DO
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Application/MP/"), fileName);
+                        file.SaveAs(path);
+                        mp.image = "~/Images/Application/MP/" + fileName; ;
+                        ModelState.Clear();
+                    }
+                }
                 db.Entry(mp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

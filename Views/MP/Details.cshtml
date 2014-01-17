@@ -10,76 +10,84 @@
     <legend>MP</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.firstName)
+        @Html.DisplayNameFor(model => model.firstName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.firstName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.middleName)
+        @Html.DisplayNameFor(model => model.middleName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.middleName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.lastName)
+        @Html.DisplayNameFor(model => model.lastName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.lastName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Constituency.title)
+        @Html.DisplayNameFor(model => model.Constituency.title)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Constituency.title)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Party.title)
+        @Html.DisplayNameFor(model => model.Party.title)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Party.title)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.electedYear)
+        @Html.DisplayNameFor(model => model.electedYear)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.electedYear)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.phone)
+        @Html.DisplayNameFor(model => model.phone)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.phone)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.mobile)
+        @Html.DisplayNameFor(model => model.mobile)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.mobile)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.qualification)
+        @Html.DisplayNameFor(model => model.qualification)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.qualification)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.image)
+        @Html.DisplayNameFor(model => model.image)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.image)
+        @*@Html.DisplayFor(model => model.image)*@
+        @if (Model.image != null)
+        {                 
+            <img src="@Url.Content(Model.image)" alt="" width="100" height="100" />                                
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => Model.image)
+        }
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

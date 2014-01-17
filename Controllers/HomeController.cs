@@ -59,6 +59,9 @@ namespace Politico.Controllers
             else
                 Session["picture"] = "/images/Application/placeholder.png";
 
+            PoliticoEntities entity = new PoliticoEntities();
+            entity.SaveMember(email, name, null, null, picture);
+
             return Json(new
             {
                 RedirectUrl = Url.Action("Home", "Home")
@@ -87,8 +90,8 @@ namespace Politico.Controllers
 
             CacheClear();
 
-            Session["email"] = "";
-            Session["name"] = result.UserName;
+            Session["email"] = result.UserName;
+            Session["name"] = "";
             Session["picture"] = "/images/Application/placeholder.png";
 
             if (Session["email"] != null)
@@ -96,6 +99,9 @@ namespace Politico.Controllers
                 ViewBag.Constituency = Session["Constituency"];
                 ViewBag.Name = Session["name"];
                 ViewBag.Picture = Session["picture"];
+
+                PoliticoEntities entity = new PoliticoEntities();
+                entity.SaveMember(result.UserName, Session["name"].ToString(), null, null, Session["picture"].ToString());
 
                 return View("Home", "_HomePageLayout");
             }
@@ -111,6 +117,22 @@ namespace Politico.Controllers
             PoliticoEntities entity = new PoliticoEntities();
             var result = entity.FindMPOfConstituency(constituency).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult LoadRating(long MPID)
+        {
+            PoliticoEntities entity = new PoliticoEntities();
+            var result = entity.FindMPRating(MPID).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]        
+        public ActionResult SaveComment(decimal rating, string comment, int sectorID, long MPID)
+        {            
+            PoliticoEntities entity = new PoliticoEntities();
+            entity.SaveComment(rating, comment, sectorID, Session["email"].ToString(), MPID);
+            return new EmptyResult();
         }
 
         [HttpPost]

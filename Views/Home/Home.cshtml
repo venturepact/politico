@@ -4,13 +4,23 @@
     ViewBag.Title = "Home";
 }
 
-
 <!--Middle Start-->
 <div class="content_main">
     <div class="content">
         <!--Left Panel start-->
         <div class="left">
             <div id="MPList" class="party_member">
+                <div class="heading_all">
+                    <div class="parties_heading">
+                        <h2>Parties</h2>
+                    </div>
+                    <div class="mp_heading">
+                        <h2>Member of Parliament</h2>
+                    </div>
+                    <div class="mpr_heading">
+                        <h2>MP Rating</h2>
+                    </div>
+                </div>
             </div>
         </div>
         <!--Right panel start-->
@@ -116,119 +126,129 @@
             type: "GET",
             dataType: "json",
             data: { constituency: @Html.Raw(Json.Encode(ViewBag.Constituency)) }, 
-            success: function (data) {                  
-                var html = '<div class="heading_all">' +
-            	            '<div class="parties_heading"><h2>Parties</h2></div>' + 
-                            '<div class="mp_heading"><h2>Member of Parliament</h2></div>' +
-                            '<div class="mpr_heading"><h2>MP Rating</h2></div>' +
-                            '</div>';
+            success: function (data) {                                  
                 $.each(data, function (key, value) {                    
-                    html += '<div class="left_inner"><div class="parties">' +                          
-                          '<img src="' + value['partyImage'] + '" width="75" height="76" alt="" /><span>' + value['title'] +
-                      '</div>' +
-                      '<div class="mp">' +                          
-                          '<img src="/images/Application/MP/' + value['MPImage'] + '" width="75" height="76" alt="" />' +
-                          '<div class="mp_detail_outer">' +
-                              '<div class="mp_detail">' +
-                                  '<p><b>Name:</b> ' + value['firstName'] + ' ' + value['middleName'] + ' ' + value['lastName'] + '</p>' +
-                              '</div>' +
-                              '<div class="mp_detail">' +
-                                  '<p><b>Education:</b> ' + value['qualification'] + '</p>' +
-                              '</div>' +
-                              '<div class="mp_detail">' +
-                                  '<p><b>Year in Politics:</b> ' + value['electedYear'] + '</p>' +
-                              '</div>' +
-                          '</div>' +
-                      '</div>' +
-                      '<div class="mpr">' +                          
-                          '<div class="mpr_detail_outer">' +
-                              '<div class="mpr_detail">' +
-                                  '<p><b>Democracy :</b></p>' +
-                                  '<ul class="rating twostar">' +
-                                      '<li class="one"><a href="#" title="1 Star">1</a></li>' +
-                                      '<li class="two"><a href="#" title="2 Stars">2</a></li>' +
-                                      '<li class="three"><a href="#" title="3 Stars">3</a></li>' +
-                                      '<li class="four"><a href="#" title="4 Stars">4</a></li>' +
-                                      '<li class="five"><a href="#" title="5 Stars">5</a></li>' +
-                                  '</ul>' +
-                                  '<div class="users">2,260 users</div>' +
-                              '</div>' +
-                              '<div class="mpr_detail">' +
-                                  '<p><b>Education :</b></p>' +
-                                  '<ul class="rating twostar">' +
-                                      '<li class="one"><a href="#" title="1 Star">1</a></li>' +
-                                      '<li class="two"><a href="#" title="2 Stars">2</a></li>' +
-                                      '<li class="three"><a href="#" title="3 Stars">3</a></li>' +
-                                      '<li class="four"><a href="#" title="4 Stars">4</a></li>' +
-                                      '<li class="five"><a href="#" title="5 Stars">5</a></li>' +
-                                  '</ul>' +
-                                  '<div class="users">2,260 users</div>' +
-                              '</div>' +
-                              '<div class="mpr_detail">' +
-                                  '<p><b>Corruption :</b></p>' +
-                                  '<ul class="rating twostar">' +
-                                      '<li class="one"><a href="#" title="1 Star">1</a></li>' +
-                                      '<li class="two"><a href="#" title="2 Stars">2</a></li>' +
-                                      '<li class="three"><a href="#" title="3 Stars">3</a></li>' +
-                                      '<li class="four"><a href="#" title="4 Stars">4</a></li>' +
-                                      '<li class="five"><a href="#" title="5 Stars">5</a></li>' +
-                                  '</ul>' +
-                                  '<div class="users">2,260 users</div>' +
-                              '</div>' +
-                              '<div class="mpr_detail">' +
-                                  '<p><b>Promises Fulfill :</b></p>' +
-                                  '<ul class="rating twostar">' +
-                                      '<li class="one"><a href="#" title="1 Star">1</a></li>' +
-                                      '<li class="two"><a href="#" title="2 Stars">2</a></li>' +
-                                      '<li class="three"><a href="#" title="3 Stars">3</a></li>' +
-                                      '<li class="four"><a href="#" title="4 Stars">4</a></li>' +
-                                      '<li class="five"><a href="#" title="5 Stars">5</a></li>' +
-                                  '</ul>' +
-                                  '<div class="users">2,260 users</div>' +
-                              '</div>' +
-                          '</div>' +
-                      '</div>' +
-                      '<div class="commnet"></div>' +
-                      '<div class="accordion commnet_btn accordion-close" id="section' + (key + 2) + '">Comment<span></span></div>' +
-                      '<div comment_outer" style="display: none;">' +
-                          '<div class="commnet_box">' +
-                              '<textarea name="textarea" class="comment_box" cols="45" rows="5" id="textarea"></textarea>' +
-                              '<div class="post_comment">Post Comment</div>' +
-                          '</div>' +
-                          '<div class="commnet_left">' +
-                              '<div class="read_comment">' +
-                                  '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
-                              '</div>' +
-                              '<div class="user_detal">' +
-                                  '<div class="name">Talwinder Singh</div>' +
-                                  '<div class="day">Thursday,</div>' +
-                                  '<div class="month">January 4th,</div>' +
-                                  '<div class="year">2014,</div>' +
-                                  '<div class="time">12:35</div>' +
-                                  '<div class="read_more">read more &raquo;</div>' +
-                              '</div>' +
-                          '</div>' +
-                          '<div class="commnet_left">' +
-                              '<div class="read_comment">' +
-                                  '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
-                              '</div>' +
-                              '<div class="user_detal">' +
-                                  '<div class="name">Talwinder Singh</div>' +
-                                  '<div class="day">Thursday,</div>' +
-                                  '<div class="month">January 4th,</div>' +
-                                  '<div class="year">2014,</div>' +
-                                  '<div class="time">12:35</div>' +
-                                  '<div class="read_more">read more &raquo;</div>' +
-                              '</div>' +
-                          '</div>' +
-                      '</div></div>';
-                });                 
-                
-                $('#MPList').html(html);
+                    var html =  '<div class="left_inner">' +
+                                    '<div class="parties">' +                          
+                                        '<img src="/images/Application/Party/' + value['partyImage'] + '" width="75" height="76" alt="" /><span>' + value['title'] +
+                                    '</div>' +
+                                    '<div class="mp">' +                          
+                                        '<img src="/images/Application/MP/' + value['MPImage'] + '" width="75" height="76" alt="" />' +
+                                    '<div class="mp_detail_outer">' +
+                                    '<div class="mp_detail">' +
+                                        '<p><b>Name:</b> ' + value['firstName'] + ' ' + value['middleName'] + ' ' + value['lastName'] + '</p>' +
+                                    '</div>' +
+                                    '<div class="mp_detail">' +
+                                        '<p><b>Education:</b> ' + value['qualification'] + '</p>' +
+                                    '</div>' +
+                                    '<div class="mp_detail">' +
+                                        '<p><b>Year in Politics:</b> ' + value['electedYear'] + '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="mpr">' +                          
+                                    '<div id="RatingList' + key + '" class="mpr_detail_outer">' +
+
+                                    '</div>' +
+                                '</div>' +
+                                  '<div class="commnet"></div>' +
+                                  '<div class="accordion commnet_btn accordion-close" id="section' + key + '">Comment<span></span></div>' +
+                                  '<div comment_outer" style="display: none;">' +
+                                      '<div class="commnet_box">' +
+                                          '<textarea name="textarea" class="comment_box" cols="45" rows="5" id="textarea"></textarea>' +
+                                          '<div class="post_comment">Post Comment</div>' +
+                                      '</div>' +
+                                      '<div class="commnet_left">' +
+                                          '<div class="read_comment">' +
+                                              '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
+                                          '</div>' +
+                                          '<div class="user_detal">' +
+                                              '<div class="name">Talwinder Singh</div>' +
+                                              '<div class="day">Thursday,</div>' +
+                                              '<div class="month">January 4th,</div>' +
+                                              '<div class="year">2014,</div>' +
+                                              '<div class="time">12:35</div>' +
+                                              '<div class="read_more">read more &raquo;</div>' +
+                                          '</div>' +
+                                      '</div>' +
+                                      '<div class="commnet_left">' +
+                                          '<div class="read_comment">' +
+                                              '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
+                                          '</div>' +
+                                          '<div class="user_detal">' +
+                                              '<div class="name">Talwinder Singh</div>' +
+                                              '<div class="day">Thursday,</div>' +
+                                              '<div class="month">January 4th,</div>' +
+                                              '<div class="year">2014,</div>' +
+                                              '<div class="time">12:35</div>' +
+                                              '<div class="read_more">read more &raquo;</div>' +
+                                          '</div>' +
+                                      '</div>' +
+                                    '</div>'+
+                                    '</div>';
+
+                    $('#MPList').append(html);  
+
+                    $.ajax({
+                        url: '/Home/LoadRating',
+                        type: "GET",
+                        dataType: "json",
+                        data: { MPID: value['ID'] }, 
+                        success: function (data) {                                 
+                            $.each(data, function (ikey, ivalue) {   
+                                var ihtml = '<div class="mpr_detail">' +
+                                            '<p><b>' + ivalue['title'] + ': </b></p>' +
+                                            '<div id="' + ivalue['title'] + key + '" class="rating_star">' + 
+                                            '</div>' +                                 
+                                            '<div class="users">' + ivalue['noOfUsers'] + ' users' + 
+                                            '</div>' +
+                                        '</div>';                                
+                                $('#RatingList' + key).append(ihtml);  
+                                RateIt(ivalue['title'] + key, ivalue['rating'], ivalue['sectorID'], value['ID']);
+                            });                                          
+                        },
+                        error: function (error) {                
+                            alert('Error');
+                        }
+                    })                                                
+                });                                          
             },
             error: function (error) {                
                 alert('Error');
             }
         })
     });
+</script>
+
+<script>
+    $.fn.raty.defaults.path = '/Images/Application/Rating';
+
+    function RateIt(title, rating, sectorID, MPID) {    
+        $('#' + title).raty({
+            half: true,
+            path: null,
+            starHalf: '/Images/Application/Rating/star-half.png',
+            starOff: '/Images/Application/Rating/star-off.png',
+            starOn: '/Images/Application/Rating/star-on.png',
+            score: rating,           
+            click: function(score, evt) {
+                $('#' + title).raty({
+                    readOnly: true,
+                    score: score,           
+                });       
+                $.ajax({
+                    url: '/Home/SaveComment',
+                    type: "POST",
+                    dataType: "json",
+                    data: { rating: score, comment: '', sectorID: sectorID, MPID: MPID}, 
+                    success: function (data) {                                                                                 
+                        alert('You rate it (' + score + ')');
+                    },
+                    error: function (error) {                
+                        alert('Error');
+                    }
+                })     
+            }
+        });         
+    }
 </script>

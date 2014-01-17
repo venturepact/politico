@@ -339,7 +339,7 @@ body {
 .mpr p {
 	color: #3c4e57;
 	line-height: 23px;
-	width: 35%;
+	width: 32%;
 	float: left;
 }
 .mpr p b {
@@ -348,7 +348,7 @@ body {
 }
 .mpr_detail .users {
 	float: left;
-	width: 35%;
+	width: 30%;
 	line-height: 20px;
 }
 .rating {
@@ -379,7 +379,12 @@ body {
 .fivestar {
 	background-position: 0 -80px
 }
-ul.rating li {
+.rating_star {
+    float: left;
+    height: 16px;
+    margin: 3px 4px 0px 0px
+}
+/*ul.rating li {
 	cursor: pointer;
 	float: left;
 	text-indent: -999em;
@@ -430,7 +435,7 @@ ul.rating li.four a:hover {
 }
 ul.rating li.five a:hover {
 	background-position: 0 -160px;
-}
+}*/
 .commnet{
 	float:right;
 	}

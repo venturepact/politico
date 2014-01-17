@@ -117,19 +117,32 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
+          <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="firstName" ColumnName="firstName" />
           <ScalarProperty Name="middleName" ColumnName="middleName" />
           <ScalarProperty Name="lastName" ColumnName="lastName" />
           <ScalarProperty Name="qualification" ColumnName="qualification" />
           <ScalarProperty Name="electedYear" ColumnName="electedYear" />
-          <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="MPImage" ColumnName="MPImage" />
+          <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="partyImage" ColumnName="partyImage" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SaveMember" FunctionName="PoliticoModel.Store.SaveMember" />
+    <FunctionImportMapping FunctionImportName="SaveComment" FunctionName="PoliticoModel.Store.SaveComment" />
   </EntityContainerMapping>
 </Mapping>

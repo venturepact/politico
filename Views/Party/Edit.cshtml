@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Party", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
@@ -32,13 +32,24 @@
             @Html.EditorFor(model => model.abbreviation)
             @Html.ValidationMessageFor(model => model.abbreviation)
         </div>
-
         <div class="editor-label">
             Logo
             @*@Html.LabelFor(model => model.image)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.image)
+            @* @Html.EditorFor(model => model.image)
+            @Html.ValidationMessageFor(model => model.image)*@
+            @if (Model.image != null)
+            {                 
+                <img src="@Url.Content(Model.image)" alt="" width="100" height="100" />                                
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => Model.image)
+            }
+            <br />
+            <input type="file" id="fileToUpload" name="file" />
+            <span class="field-validation-error" id="spanfile"></span>
             @Html.ValidationMessageFor(model => model.image)
         </div>
         <p>
@@ -55,3 +66,97 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<script type="text/jscript">
+    //get file size
+    function GetFileSize(fileid) {
+        try {
+            var fileSize = 0;
+            //for IE
+            if ($.browser.msie) {
+                //before making an object of ActiveXObject, 
+                //please make sure ActiveX is enabled in your IE browser
+                var objFSO = new ActiveXObject("Scripting.FileSystemObject"); var filePath = $("#" + fileid)[0].value;
+                var objFile = objFSO.getFile(filePath);
+                var fileSize = objFile.size; //size in kb
+                fileSize = fileSize / 1048576; //size in mb 
+            }
+                //for FF, Safari, Opeara and Others
+            else {
+                fileSize = $("#" + fileid)[0].files[0].size //size in kb
+                fileSize = fileSize / 1048576; //size in mb 
+            }
+
+            // alert("Uploaded File Size is" + fileSize + "MB");
+            return fileSize;
+        }
+        catch (e) {
+            alert("Error is :" + e);
+        }
+    }
+
+    //get file path from client system
+    function getNameFromPath(strFilepath) {
+
+        var objRE = new RegExp(/([^\/\\]+)$/);
+        var strName = objRE.exec(strFilepath);
+
+        if (strName == null) {
+            return null;
+        }
+        else {
+            return strName[0];
+        }
+
+    }
+
+    $("#btnSubmit").live("click", function () {
+
+        if ($('#fileToUpload').val() == "") {
+            $("#spanfile").html("Please upload file");
+            return false;
+        }
+        else {
+            return checkfile();
+        }
+    });
+
+    function checkfile() {
+        var file = getNameFromPath($("#fileToUpload").val());
+        if (file != null) {
+            var extension = file.substr((file.lastIndexOf('.') + 1));
+            //  alert(extension);
+            switch (extension) {
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                case 'pdf':
+                    flag = true;
+                    break;
+                default:
+                    flag = false;
+            }
+        }
+        if (flag == false) {
+            $("#spanfile").text("You can upload only jpg,png,gif,pdf extension file");
+            return false;
+
+        }
+        else {
+            var size = GetFileSize('fileToUpload');
+            if (size > 3) {
+                $("#spanfile").text("You can upload file up to 3 MB");
+                return false;
+            }
+            else {
+                $("#spanfile").text("");
+            }
+        }
+    }
+    $(function () {
+        $("#fileToUpload").change(function () {
+            checkfile();
+        });
+
+    });
+
+</script>

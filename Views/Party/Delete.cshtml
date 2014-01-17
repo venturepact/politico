@@ -11,29 +11,42 @@
     <legend>Party</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.title)
+        Title
+        @*@Html.DisplayNameFor(model => model.title)*@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.title)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.abbreviation)
+        Abbr.
+        @*@Html.DisplayNameFor(model => model.abbreviation)*@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.abbreviation)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.image)
+        Logo
+        @*@Html.DisplayNameFor(model => model.image)*@
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.image)
+        @*@Html.DisplayFor(model => model.image)*@
+        @if (Model.image != null)
+        {                 
+            <img src="@Url.Content(Model.image)" alt="" width="100" height="100" />                                
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => Model.image)
+        }
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Delete" />
+        |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }

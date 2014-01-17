@@ -210,6 +210,9 @@
     <Compile Include="Models\FindMPOfConstituency_Result.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FindMPRating_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Member.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -887,6 +890,11 @@
     <Content Include="Images\Application\placeholder.png" />
     <Content Include="Images\Application\plus.png" />
     <Content Include="Images\Application\radio.png" />
+    <Content Include="Images\Application\Rating\cancel-off.png" />
+    <Content Include="Images\Application\Rating\cancel-on.png" />
+    <Content Include="Images\Application\Rating\star-half.png" />
+    <Content Include="Images\Application\Rating\star-off.png" />
+    <Content Include="Images\Application\Rating\star-on.png" />
     <Content Include="Images\Application\right_arrow.png" />
     <Content Include="Images\Application\search.png" />
     <Content Include="Images\Application\searchBox.png" />
@@ -930,6 +938,9 @@
     <Content Include="Scripts\Application\jquery.min.js" />
     <Content Include="Scripts\Application\jquery.popupoverlay.js" />
     <Content Include="Scripts\Application\jquery.touchSwipe.min.js" />
+    <Content Include="Scripts\Application\Rating\jquery.js" />
+    <Content Include="Scripts\Application\Rating\jquery.raty.js" />
+    <Content Include="Scripts\Application\Rating\labs.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />

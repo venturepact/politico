@@ -58,8 +58,25 @@
     <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
       <Parameter Name="MPID" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
+      <Parameter Name="MPID" Mode="In" Type="Int64" />
+    </FunctionImport>
     <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
       <Parameter Name="constituency" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SaveMember">
+      <Parameter Name="loginID" Mode="In" Type="String" />
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="middleName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="profileImage" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SaveComment">
+      <Parameter Name="rating" Mode="In" Type="Decimal" />
+      <Parameter Name="comment" Mode="In" Type="String" />
+      <Parameter Name="sectorID" Mode="In" Type="Int32" />
+      <Parameter Name="loginID" Mode="In" Type="String" />
+      <Parameter Name="mpID" Mode="In" Type="Int64" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="Party">
@@ -179,7 +196,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Decimal" Name="rating" Precision="1" Scale="1" />
+    <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
     <Property Type="String" Name="comment1" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="sectorID" />
     <Property Type="Int64" Name="userID" />
@@ -318,14 +335,21 @@
     <Property Type="Int64" Name="ID" Nullable="false" />
     <Property Type="String" Name="comment" Nullable="true" MaxLength="500" />
   </ComplexType>
+  <ComplexType Name="FindMPRating_Result">
+    <Property Type="Int32" Name="sectorID" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+    <Property Type="Decimal" Name="rating" Nullable="true" Precision="38" Scale="6" />
+    <Property Type="Int32" Name="noOfUsers" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="FindMPOfConstituency_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
     <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
     <Property Type="Int32" Name="electedYear" Nullable="true" />
-    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="MPImage" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="partyImage" Nullable="true" />
   </ComplexType>
 </Schema>

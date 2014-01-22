@@ -22,7 +22,11 @@ namespace Politico.Controllers
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
-        {            
+        {
+            if (Session["admin"] == null)
+            {
+                WebSecurity.Logout();
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

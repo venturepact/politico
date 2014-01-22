@@ -1,0 +1,89 @@
+.tooltip_description {
+    display: none;
+}
+
+.jquery-gdakram-tooltip {
+    position: absolute;
+    z-index: 10000;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+    .jquery-gdakram-tooltip div.popup_content {
+        width: 430px;
+        min-height: 200px;
+        float: left;
+        padding: 0px;
+    }
+
+    .jquery-gdakram-tooltip div.up_arrow {
+        background: url('/Images/Application/up_arrow.png') 40px 0px no-repeat;
+        width: 100%;
+        height: 20px;
+    }
+
+    .jquery-gdakram-tooltip div.down_arrow {
+        background: url('/Images/Application/down_arrow.png') 40px 0px no-repeat;
+        width: 100%;
+        height: 20px;
+    }
+
+    .jquery-gdakram-tooltip div.left_arrow {
+        height: 100%;
+    }
+
+    .jquery-gdakram-tooltip div.left_arrow {
+        float: left;
+        background: url('/Images/Application/left_arrow.png') 0px 0px no-repeat;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        right: -10px;
+    }
+
+.popup_inner {
+    float: left;
+    border: solid 8px #dc3b3b;
+    background: #fff;
+    width: 100%;
+    margin-top: 100px;
+    -moz-box-shadow: 0 0 4px -2px #666;
+    -webkit-box-shadow: 0 0 4px -2px #666;
+    box-shadow: 0 0 4px -2px #666;
+    line-height: 17px;
+}
+
+    .popup_inner .graystrip {
+        float: left;
+        width: 97%;
+        background: #f3f4f4;
+        padding: 6px;
+    }
+
+        .popup_inner .graystrip span {
+            float: left;
+            font-weight: bold;
+            padding-right: 3px;
+        }
+
+    .popup_inner .whitestrip {
+        float: left;
+        width: 97%;
+        background: #fff;
+        padding: 6px;
+    }
+
+        .popup_inner .whitestrip span {
+            float: left;
+            font-weight: bold;
+            padding-right: 3px;
+        }
+
+    .popup_inner h1 {
+        font-family: 'robotolight';
+        letter-spacing: -1px;
+        color: #dc3b3b;
+        font-size: 25px;
+        padding: 6px 0px;
+    }

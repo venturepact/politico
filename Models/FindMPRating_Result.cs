@@ -13,9 +13,10 @@ namespace Politico.Models
     
     public partial class FindMPRating_Result
     {
-        public Nullable<int> sectorID { get; set; }
+        public int sectorID { get; set; }
         public string title { get; set; }
-        public Nullable<decimal> rating { get; set; }
+        public decimal rating { get; set; }
         public Nullable<int> noOfUsers { get; set; }
+        public Nullable<int> isRated { get; set; }
     }
 }

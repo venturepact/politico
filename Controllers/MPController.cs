@@ -85,7 +85,7 @@ namespace Politico.Controllers
                         var fileName = Path.GetFileName(file.FileName);
                         var path = Path.Combine(Server.MapPath("~/Images/Application/MP/"), fileName);
                         file.SaveAs(path);
-                        mp.image = "~/Images/Application/MP/" + fileName; ;
+                        mp.image = "/Images/Application/MP/" + fileName; ;
                         ModelState.Clear();
                     }
                 }
@@ -146,7 +146,7 @@ namespace Politico.Controllers
                         var fileName = Path.GetFileName(file.FileName);
                         var path = Path.Combine(Server.MapPath("~/Images/Application/MP/"), fileName);
                         file.SaveAs(path);
-                        mp.image = "~/Images/Application/MP/" + fileName; ;
+                        mp.image = "/Images/Application/MP/" + fileName; ;
                         ModelState.Clear();
                     }
                 }

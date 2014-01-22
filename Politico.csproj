@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +39,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="aspsnippets.twitterapi">
@@ -45,6 +48,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -53,12 +57,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -115,6 +116,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -167,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ConstituencyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MPController.cs" />
@@ -185,6 +188,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentContext.cs" />
     <Compile Include="Models\Constituency.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -204,7 +208,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\FindComment_Result.cs">
+    <Compile Include="Models\FindMPComment_Result.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FindMPOfConstituency_Result.cs">
@@ -231,10 +235,16 @@
     <Compile Include="Models\Result.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SaveAnswer_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sector.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SectorContext.cs" />
+    <Compile Include="Models\SelectQuestion_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\State.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -244,7 +254,8 @@
   <ItemGroup>
     <Content Include="Content\Application\animate.css" />
     <Content Include="Content\Application\home-css.css" />
-    <Content Include="Content\Application\liquid-slider.css" />
+    <Content Include="Content\Application\jquery.tooltip.css" />
+    <Content Include="Content\Application\responsiveslides.css" />
     <Content Include="Content\Application\styles.css" />
     <Content Include="Content\googlefont-webfont.eot" />
     <Content Include="Content\googlefont-webfont.svg" />
@@ -750,7 +761,6 @@
     <Content Include="Images\Application\MP\4523033c450c-c51c-4ebb-bf2e-79a84c3dcebf.jpg" />
     <Content Include="Images\Application\MP\452492552855-e0f4-4c85-b78c-707f9390a3e7.jpg" />
     <Content Include="Images\Application\MP\4525085fca18-298f-40ff-a4a2-a1bbd9a3c97b.jpg" />
-    <Content Include="Images\Application\MP\45256e92f079-787c-42b6-acb8-983d2ec1626b.jpg" />
     <Content Include="Images\Application\MP\45257e5c8e63-e462-47ff-801e-4f232c8d8f88.jpg" />
     <Content Include="Images\Application\MP\45258514950a-a81f-4133-bf87-a34041655940.jpg" />
     <Content Include="Images\Application\MP\4525c04bd985-f04d-42a7-8479-907dcedeac00.jpg" />
@@ -859,7 +869,6 @@
     <Content Include="Images\Application\MP\katheriad9696518-afe9-4465-9e5f-4ad5e44f1d72.jpg" />
     <Content Include="Images\Application\MP\khurshidf79f08b9-a355-4236-809d-edc02ec50aac.jpg" />
     <Content Include="Images\Application\MP\kpacf056e5-4244-423e-a309-0a95870d5b50.jpg" />
-    <Content Include="Images\Application\MP\kpp829112da-ce7e-4852-8868-1b417195410c.jpeg" />
     <Content Include="Images\Application\MP\kumarfaa17c20-e803-4435-9c62-52dc7669490d.jpg" />
     <Content Include="Images\Application\MP\neerajeb9d217d-3afd-4c10-a3e5-f9280c7e607c.jpg" />
     <Content Include="Images\Application\MP\nirmal3f62a89c-ce47-4dae-9c95-2c6bdeed0650.jpg" />
@@ -880,13 +889,50 @@
     <Content Include="Images\Application\MP\shanrand77d330d-b1c2-4dd3-9240-c9de9fd28a3c.jpg" />
     <Content Include="Images\Application\MP\singhe6dc4066-b57f-4764-8125-654b2bcf4fcc.jpg" />
     <Content Include="Images\Application\MP\tand9a69fb1f-d8e3-49f1-8488-b585bde0c0fb.jpg" />
-    <Content Include="Images\Application\MP\untitled53209eb9-6625-493a-b850-edbe1307e81b.bmp" />
     <Content Include="Images\Application\MP\vardhanf034ad32-08be-47c0-83c4-9a0a791eec9a.jpg" />
     <Content Include="Images\Application\MP\yad6112b87f-719d-4a16-8826-6c73f616510d.jpg" />
     <Content Include="Images\Application\MP\yadav0c7934bf-4d9c-482c-acc0-7b5a6837c21d.jpg" />
     <Content Include="Images\Application\national-congress-logo.jpg" />
     <Content Include="Images\Application\national-congress.jpg" />
     <Content Include="Images\Application\next.png" />
+    <Content Include="Images\Application\Party\1369380863_51069.jpg" />
+    <Content Include="Images\Application\Party\1545800_259323574224645_1766765581_a.jpg" />
+    <Content Include="Images\Application\Party\187983_128412067206838_1061757678_n.jpg" />
+    <Content Include="Images\Application\Party\199731_202640266424044_2789062_n.jpg" />
+    <Content Include="Images\Application\Party\200px-Flag_of_Asom_Gana_Parishad.svg.png" />
+    <Content Include="Images\Application\Party\621.jpg" />
+    <Content Include="Images\Application\Party\800px-Flag_of_the_Indian_National_Congress.svg.png" />
+    <Content Include="Images\Application\Party\947003_474139246000053_2123156499_a.png" />
+    <Content Include="Images\Application\Party\admk-logo.jpg" />
+    <Content Include="Images\Application\Party\Aifbflag.PNG" />
+    <Content Include="Images\Application\Party\aimim-temple-647x450.jpg" />
+    <Content Include="Images\Application\Party\bahujan_vikas_aaghadi.jpg" />
+    <Content Include="Images\Application\Party\biju-janata-dal.jpg" />
+    <Content Include="Images\Application\Party\BJP-flag.jpg" />
+    <Content Include="Images\Application\Party\BPF-Flag.png" />
+    <Content Include="Images\Application\Party\BSP.jpg" />
+    <Content Include="Images\Application\Party\canvas1.PNG" />
+    <Content Include="Images\Application\Party\Copy-of-swabhimani-paksh.jpg" />
+    <Content Include="Images\Application\Party\cpi-m_1.jpg" />
+    <Content Include="Images\Application\Party\ePqacRL6BuXMWtGTkrLfw4XXXL4j3HpexhjNOf_P3YmryPKwJ94QGRtDb3Sbc6KY.jpg" />
+    <Content Include="Images\Application\Party\in}aiudf.gif" />
+    <Content Include="Images\Application\Party\in}dmk2.gif" />
+    <Content Include="Images\Application\Party\in}janata.gif" />
+    <Content Include="Images\Application\Party\in}jmm.gif" />
+    <Content Include="Images\Application\Party\in}ncp.gif" />
+    <Content Include="Images\Application\Party\IUML %283%29.JPG" />
+    <Content Include="Images\Application\Party\jds-main-logo-full.jpg" />
+    <Content Include="Images\Application\Party\naga-peoples-front.png" />
+    <Content Include="Images\Application\Party\National-Conference.jpg" />
+    <Content Include="Images\Application\Party\rjd.jpg" />
+    <Content Include="Images\Application\Party\rsp-political-party-flag-1.jpg" />
+    <Content Include="Images\Application\Party\Sikkim-Democratic-Front-SDF.jpg" />
+    <Content Include="Images\Application\Party\Siva sena logo.png" />
+    <Content Include="Images\Application\Party\tdp_screensaver.jpg" />
+    <Content Include="Images\Application\Party\TRinamool-Congress-Pardaphash-78655.png" />
+    <Content Include="Images\Application\Party\TRS_Flag.png" />
+    <Content Include="Images\Application\Party\Viduthalai_Chiruthaigal_Katchi_banner.png" />
+    <Content Include="Images\Application\Party\vja4yfrxsqinhiyyo2ej.jpeg" />
     <Content Include="Images\Application\placeholder.png" />
     <Content Include="Images\Application\plus.png" />
     <Content Include="Images\Application\radio.png" />
@@ -932,15 +978,14 @@
     <Content Include="Scripts\Application\jquery.accordion.js" />
     <Content Include="Scripts\Application\jquery.base64.js" />
     <Content Include="Scripts\Application\jquery.base64.min.js" />
-    <Content Include="Scripts\Application\jquery.cookie.js" />
-    <Content Include="Scripts\Application\jquery.easing.1.3.js" />
-    <Content Include="Scripts\Application\jquery.liquid-slider-custom.min.js" />
     <Content Include="Scripts\Application\jquery.min.js" />
     <Content Include="Scripts\Application\jquery.popupoverlay.js" />
-    <Content Include="Scripts\Application\jquery.touchSwipe.min.js" />
+    <Content Include="Scripts\Application\jquery.tooltip.js" />
     <Content Include="Scripts\Application\Rating\jquery.js" />
     <Content Include="Scripts\Application\Rating\jquery.raty.js" />
     <Content Include="Scripts\Application\Rating\labs.js" />
+    <Content Include="Scripts\Application\responsiveslides.js" />
+    <Content Include="Scripts\Application\responsiveslides.min.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
@@ -1020,10 +1065,14 @@
     <Content Include="Views\Party\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Comment\Details.cshtml" />
+    <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comment\Edit.cshtml" />
+    <Content Include="Views\Comment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Application\Party\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1047,7 +1096,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>49744</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:59029/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

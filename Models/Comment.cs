@@ -15,10 +15,10 @@ namespace Politico.Models
     public partial class Comment
     {
         public long ID { get; set; }
+        public string title { get; set; }
         public Nullable<decimal> rating { get; set; }
-        public string comment1 { get; set; }
         public Nullable<int> sectorID { get; set; }
-        public Nullable<long> userID { get; set; }
+        public Nullable<long> memberID { get; set; }
         public Nullable<long> mpID { get; set; }
         public Nullable<System.DateTime> datetime { get; set; }
     

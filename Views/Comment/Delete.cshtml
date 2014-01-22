@@ -1,0 +1,68 @@
+﻿@model Politico.Models.Comment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Comment</legend>
+
+    <div class="display-label">
+        Comment
+        @*@Html.DisplayNameFor(model => model.title)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+        Rating
+        @*@Html.DisplayNameFor(model => model.rating)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.rating)
+    </div>
+
+    <div class="display-label">
+        Sector
+        @*@Html.DisplayNameFor(model => model.Sector.title)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sector.title)
+    </div>
+
+    <div class="display-label">
+        User
+        @*@Html.DisplayNameFor(model => model.Member.loginID)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Member.loginID)
+    </div>
+
+    <div class="display-label">
+        MP
+        @*@Html.DisplayNameFor(model => model.MP.firstName)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MP.firstName)
+    </div>
+
+    <div class="display-label">
+        Date
+        @*@Html.DisplayNameFor(model => model.datetime)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datetime)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

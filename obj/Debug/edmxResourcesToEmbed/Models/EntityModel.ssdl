@@ -61,8 +61,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="IsAgree" Type="bit" />
     <Property Name="questionID" Type="int" />
+    <Property Name="isAgree" Type="bit" />
     <Property Name="userID" Type="bigint" />
     <Property Name="datetime" Type="datetime" />
   </EntityType>
@@ -71,10 +71,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="varchar" MaxLength="500" />
     <Property Name="rating" Type="decimal" Precision="2" Scale="1" />
-    <Property Name="comment" Type="varchar" MaxLength="500" />
     <Property Name="sectorID" Type="int" />
-    <Property Name="userID" Type="bigint" />
+    <Property Name="memberID" Type="bigint" />
     <Property Name="mpID" Type="bigint" />
     <Property Name="datetime" Type="datetime" />
   </EntityType>
@@ -137,8 +137,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" />
-    <Property Name="result" Type="varchar(max)" />
-    <Property Name="userID" Type="bigint" />
+    <Property Name="score" Type="varchar(max)" />
+    <Property Name="memberID" Type="bigint" />
   </EntityType>
   <EntityType Name="Sector">
     <Key>
@@ -186,7 +186,7 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Comment">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="memberID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -282,11 +282,11 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Result">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="memberID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="FindComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="FindMPComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MPID" Type="bigint" Mode="In" />
   </Function>
   <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -294,6 +294,12 @@
   </Function>
   <Function Name="FindMPRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MPID" Type="bigint" Mode="In" />
+    <Parameter Name="loginID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SaveAnswer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionID" Type="int" Mode="In" />
+    <Parameter Name="isAgree" Type="bit" Mode="In" />
+    <Parameter Name="loginID" Type="varchar" Mode="In" />
   </Function>
   <Function Name="SaveComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="rating" Type="decimal" Mode="In" />
@@ -309,4 +315,5 @@
     <Parameter Name="lastName" Type="varchar" Mode="In" />
     <Parameter Name="profileImage" Type="varchar(max)" Mode="In" />
   </Function>
+  <Function Name="SelectQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
 </Schema>

@@ -66,8 +66,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IsAgree" Type="bit" />
           <Property Name="questionID" Type="int" />
+          <Property Name="isAgree" Type="bit" />
           <Property Name="userID" Type="bigint" />
           <Property Name="datetime" Type="datetime" />
         </EntityType>
@@ -76,10 +76,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" MaxLength="500" />
           <Property Name="rating" Type="decimal" Precision="2" Scale="1" />
-          <Property Name="comment" Type="varchar" MaxLength="500" />
           <Property Name="sectorID" Type="int" />
-          <Property Name="userID" Type="bigint" />
+          <Property Name="memberID" Type="bigint" />
           <Property Name="mpID" Type="bigint" />
           <Property Name="datetime" Type="datetime" />
         </EntityType>
@@ -142,8 +142,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" />
-          <Property Name="result" Type="varchar(max)" />
-          <Property Name="userID" Type="bigint" />
+          <Property Name="score" Type="varchar(max)" />
+          <Property Name="memberID" Type="bigint" />
         </EntityType>
         <EntityType Name="Sector">
           <Key>
@@ -191,7 +191,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="userID" />
+              <PropertyRef Name="memberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -287,11 +287,11 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Result">
-              <PropertyRef Name="userID" />
+              <PropertyRef Name="memberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="FindComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="FindMPComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MPID" Type="bigint" Mode="In" />
         </Function>
         <Function Name="FindMPOfConstituency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -299,6 +299,12 @@
         </Function>
         <Function Name="FindMPRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MPID" Type="bigint" Mode="In" />
+          <Parameter Name="loginID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SaveAnswer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionID" Type="int" Mode="In" />
+          <Parameter Name="isAgree" Type="bit" Mode="In" />
+          <Parameter Name="loginID" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SaveComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rating" Type="decimal" Mode="In" />
@@ -314,6 +320,7 @@
           <Parameter Name="lastName" Type="varchar" Mode="In" />
           <Parameter Name="profileImage" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="SelectQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -340,10 +347,8 @@
             <End Role="MP" EntitySet="MPs" />
           </AssociationSet>
           <EntitySet Name="Answers" EntityType="PoliticoModel.Answer" />
-          <EntitySet Name="Comments" EntityType="PoliticoModel.Comment" />
           <EntitySet Name="Members" EntityType="PoliticoModel.Member" />
           <EntitySet Name="Questions" EntityType="PoliticoModel.Question" />
-          <EntitySet Name="Results" EntityType="PoliticoModel.Result" />
           <EntitySet Name="Sectors" EntityType="PoliticoModel.Sector" />
           <AssociationSet Name="FK_Answer_Member" Association="PoliticoModel.FK_Answer_Member">
             <End Role="Member" EntitySet="Members" />
@@ -353,32 +358,10 @@
             <End Role="Question" EntitySet="Questions" />
             <End Role="Answer" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.FK_Comment_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.FK_Comment_MP">
-            <End Role="MP" EntitySet="MPs" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.FK_Comment_Sector">
-            <End Role="Sector" EntitySet="Sectors" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.FK_Result_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Result" EntitySet="Results" />
-          </AssociationSet>
           <AssociationSet Name="FK_Question_Party" Association="PoliticoModel.FK_Question_Party">
             <End Role="Party" EntitySet="Parties" />
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
-          <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
-          <Parameter Name="MPID" Mode="In" Type="Int64" />
-          </FunctionImport>
-          <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
-          <Parameter Name="MPID" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
           <Parameter Name="constituency" Mode="In" Type="String" />
           </FunctionImport>
@@ -395,6 +378,37 @@
             <Parameter Name="sectorID" Mode="In" Type="Int32" />
             <Parameter Name="loginID" Mode="In" Type="String" />
             <Parameter Name="mpID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
+            <Parameter Name="MPID" Mode="In" Type="Int64" />
+            <Parameter Name="loginID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Comments" EntityType="PoliticoModel.Comment" />
+          <EntitySet Name="Results" EntityType="PoliticoModel.Result" />
+          <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.FK_Comment_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.FK_Comment_MP">
+            <End Role="MP" EntitySet="MPs" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.FK_Comment_Sector">
+            <End Role="Sector" EntitySet="Sectors" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.FK_Result_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <FunctionImport Name="FindMPComment" ReturnType="Collection(PoliticoModel.FindMPComment_Result)">
+          <Parameter Name="MPID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SelectQuestion" ReturnType="Collection(PoliticoModel.SelectQuestion_Result)" />
+          <FunctionImport Name="SaveAnswer" ReturnType="Collection(PoliticoModel.SaveAnswer_Result)">
+            <Parameter Name="questionID" Mode="In" Type="Int32" />
+            <Parameter Name="isAgree" Mode="In" Type="Boolean" />
+            <Parameter Name="loginID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Party">
@@ -502,27 +516,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Boolean" Name="IsAgree" />
           <Property Type="Int32" Name="questionID" />
           <Property Type="Int64" Name="userID" />
           <Property Type="DateTime" Name="datetime" Precision="3" />
           <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Answer_Member" FromRole="Answer" ToRole="Member" />
           <NavigationProperty Name="Question" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
-        </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
-          <Property Type="String" Name="comment1" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="sectorID" />
-          <Property Type="Int64" Name="userID" />
-          <Property Type="Int64" Name="mpID" />
-          <Property Type="DateTime" Name="datetime" Precision="3" />
-          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Comment" ToRole="Member" />
-          <NavigationProperty Name="MP" Relationship="PoliticoModel.FK_Comment_MP" FromRole="Comment" ToRole="MP" />
-          <NavigationProperty Name="Sector" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Comment" ToRole="Sector" />
+          <Property Type="Boolean" Name="isAgree" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -547,15 +546,6 @@
           <Property Type="Int32" Name="partyID" />
           <NavigationProperty Name="Answers" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
           <NavigationProperty Name="Party" Relationship="PoliticoModel.FK_Question_Party" FromRole="Question" ToRole="Party" />
-        </EntityType>
-        <EntityType Name="Result">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int64" Name="ID" Nullable="false" />
-          <Property Type="String" Name="result1" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="userID" />
-          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Result_Member" FromRole="Result" ToRole="Member" />
         </EntityType>
         <EntityType Name="Sector">
           <Key>
@@ -589,6 +579,60 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Question_Party">
+          <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
+          <End Type="PoliticoModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Party">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="partyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="FindMPOfConstituency_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="electedYear" Nullable="true" />
+          <Property Type="String" Name="MPImage" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="partyImage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FindMPRating_Result">
+          <Property Type="Int32" Name="sectorID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+          <Property Type="Decimal" Name="rating" Nullable="false" Precision="2" Scale="1" />
+          <Property Type="Int32" Name="noOfUsers" Nullable="true" />
+          <Property Type="Int32" Name="isRated" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="title" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
+          <Property Type="Int32" Name="sectorID" />
+          <Property Type="Int64" Name="memberID" />
+          <Property Type="Int64" Name="mpID" />
+          <Property Type="DateTime" Name="datetime" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Comment" ToRole="Member" />
+          <NavigationProperty Name="MP" Relationship="PoliticoModel.FK_Comment_MP" FromRole="Comment" ToRole="MP" />
+          <NavigationProperty Name="Sector" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Comment" ToRole="Sector" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="score" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="memberID" />
+          <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Result_Member" FromRole="Result" ToRole="Member" />
+        </EntityType>
         <Association Name="FK_Comment_Member">
           <End Type="PoliticoModel.Member" Role="Member" Multiplicity="0..1" />
           <End Type="PoliticoModel.Comment" Role="Comment" Multiplicity="*" />
@@ -597,7 +641,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="userID" />
+              <PropertyRef Name="memberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -633,42 +677,24 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Result">
-              <PropertyRef Name="userID" />
+              <PropertyRef Name="memberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Question_Party">
-          <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
-          <End Type="PoliticoModel.Question" Role="Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Party">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="partyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="FindComment_Result">
+        <ComplexType Name="FindMPComment_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
-          <Property Type="String" Name="comment" Nullable="true" MaxLength="500" />
-        </ComplexType>
-        <ComplexType Name="FindMPRating_Result">
-          <Property Type="Int32" Name="sectorID" Nullable="true" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-          <Property Type="Decimal" Name="rating" Nullable="true" Precision="38" Scale="6" />
-          <Property Type="Int32" Name="noOfUsers" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="FindMPOfConstituency_Result">
-          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="electedYear" Nullable="true" />
-          <Property Type="String" Name="MPImage" Nullable="true" />
+          <Property Type="String" Name="datetime" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SelectQuestion_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" />
+          <Property Type="Int32" Name="partyID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SaveAnswer_Result">
           <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="partyImage" Nullable="true" />
+          <Property Type="Decimal" Name="percentage" Nullable="true" Precision="4" Scale="1" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -725,23 +751,10 @@
           <EntitySetMapping Name="Answers">
             <EntityTypeMapping TypeName="PoliticoModel.Answer">
               <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="isAgree" ColumnName="isAgree" />
                 <ScalarProperty Name="datetime" ColumnName="datetime" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
                 <ScalarProperty Name="questionID" ColumnName="questionID" />
-                <ScalarProperty Name="IsAgree" ColumnName="IsAgree" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="PoliticoModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="mpID" ColumnName="mpID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
-                <ScalarProperty Name="comment1" ColumnName="comment" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -767,15 +780,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Results">
-            <EntityTypeMapping TypeName="PoliticoModel.Result">
-              <MappingFragment StoreEntitySet="Result">
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="result1" ColumnName="result" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sectors">
             <EntityTypeMapping TypeName="PoliticoModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
@@ -784,24 +788,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="FindComment" FunctionName="PoliticoModel.Store.FindComment">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PoliticoModel.FindComment_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
-                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
@@ -819,6 +805,66 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SaveMember" FunctionName="PoliticoModel.Store.SaveMember" />
           <FunctionImportMapping FunctionImportName="SaveComment" FunctionName="PoliticoModel.Store.SaveComment" />
+          <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
+                <ScalarProperty Name="isRated" ColumnName="isRated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="PoliticoModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="mpID" ColumnName="mpID" />
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="PoliticoModel.Result">
+              <MappingFragment StoreEntitySet="Result">
+                <ScalarProperty Name="memberID" ColumnName="memberID" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FindMPComment" FunctionName="PoliticoModel.Store.FindMPComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.FindMPComment_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectQuestion" FunctionName="PoliticoModel.Store.SelectQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.SelectQuestion_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="partyID" ColumnName="partyID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaveAnswer" FunctionName="PoliticoModel.Store.SaveAnswer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PoliticoModel.SaveAnswer_Result">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

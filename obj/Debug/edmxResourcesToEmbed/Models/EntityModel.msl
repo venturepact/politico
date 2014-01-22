@@ -50,23 +50,10 @@
     <EntitySetMapping Name="Answers">
       <EntityTypeMapping TypeName="PoliticoModel.Answer">
         <MappingFragment StoreEntitySet="Answer">
+          <ScalarProperty Name="isAgree" ColumnName="isAgree" />
           <ScalarProperty Name="datetime" ColumnName="datetime" />
           <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="questionID" ColumnName="questionID" />
-          <ScalarProperty Name="IsAgree" ColumnName="IsAgree" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="PoliticoModel.Comment">
-        <MappingFragment StoreEntitySet="Comment">
-          <ScalarProperty Name="datetime" ColumnName="datetime" />
-          <ScalarProperty Name="mpID" ColumnName="mpID" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="sectorID" ColumnName="sectorID" />
-          <ScalarProperty Name="comment1" ColumnName="comment" />
-          <ScalarProperty Name="rating" ColumnName="rating" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -92,15 +79,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Results">
-      <EntityTypeMapping TypeName="PoliticoModel.Result">
-        <MappingFragment StoreEntitySet="Result">
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="result1" ColumnName="result" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Sectors">
       <EntityTypeMapping TypeName="PoliticoModel.Sector">
         <MappingFragment StoreEntitySet="Sector">
@@ -109,24 +87,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="FindComment" FunctionName="PoliticoModel.Store.FindComment">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PoliticoModel.FindComment_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="comment" ColumnName="comment" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
-          <ScalarProperty Name="sectorID" ColumnName="sectorID" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="rating" ColumnName="rating" />
-          <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="FindMPOfConstituency" FunctionName="PoliticoModel.Store.FindMPOfConstituency">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PoliticoModel.FindMPOfConstituency_Result">
@@ -144,5 +104,65 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SaveMember" FunctionName="PoliticoModel.Store.SaveMember" />
     <FunctionImportMapping FunctionImportName="SaveComment" FunctionName="PoliticoModel.Store.SaveComment" />
+    <FunctionImportMapping FunctionImportName="FindMPRating" FunctionName="PoliticoModel.Store.FindMPRating">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PoliticoModel.FindMPRating_Result">
+          <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="noOfUsers" ColumnName="noOfUsers" />
+          <ScalarProperty Name="isRated" ColumnName="isRated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="PoliticoModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="mpID" ColumnName="mpID" />
+          <ScalarProperty Name="memberID" ColumnName="memberID" />
+          <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Results">
+      <EntityTypeMapping TypeName="PoliticoModel.Result">
+        <MappingFragment StoreEntitySet="Result">
+          <ScalarProperty Name="memberID" ColumnName="memberID" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="FindMPComment" FunctionName="PoliticoModel.Store.FindMPComment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PoliticoModel.FindMPComment_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SelectQuestion" FunctionName="PoliticoModel.Store.SelectQuestion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PoliticoModel.SelectQuestion_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="partyID" ColumnName="partyID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SaveAnswer" FunctionName="PoliticoModel.Store.SaveAnswer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PoliticoModel.SaveAnswer_Result">
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

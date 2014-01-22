@@ -123,7 +123,23 @@ namespace Politico.Controllers
         public JsonResult LoadRating(long MPID)
         {
             PoliticoEntities entity = new PoliticoEntities();
-            var result = entity.FindMPRating(MPID).ToList();
+            var result = entity.FindMPRating(MPID, Session["email"].ToString()).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult LoadComment(long MPID)
+        {
+            PoliticoEntities entity = new PoliticoEntities();
+            var result = entity.FindMPComment(MPID).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult LoadQuestion()
+        {
+            PoliticoEntities entity = new PoliticoEntities();
+            var result = entity.SelectQuestion().ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -131,8 +147,16 @@ namespace Politico.Controllers
         public ActionResult SaveComment(decimal rating, string comment, int sectorID, long MPID)
         {            
             PoliticoEntities entity = new PoliticoEntities();
-            entity.SaveComment(rating, comment, sectorID, Session["email"].ToString(), MPID);
-            return new EmptyResult();
+            var result = entity.SaveComment(rating, comment, sectorID, Session["email"].ToString(), MPID);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult SaveAnswer(int questionID, bool isAgree)
+        {
+            PoliticoEntities entity = new PoliticoEntities();
+            var result = entity.SaveAnswer(questionID, isAgree, Session["email"].ToString());
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

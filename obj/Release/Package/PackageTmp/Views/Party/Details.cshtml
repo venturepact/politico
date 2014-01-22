@@ -30,18 +30,18 @@
         @*@Html.DisplayNameFor(model => model.image)*@
     </div>
     <div class="display-field">
-     @*   @if (model.image != null)
+        @*@Html.DisplayFor(model => model.image)*@
+        @if (Model.image != null)
         {                 
-            <img src="@Url.Content(model.image)" alt="" width="100" height="100" />                                
+            <img src="@Url.Content(Model.image)" alt="" width="100" height="100" />                                
         }
         else
         {
-            @Html.DisplayFor(modelItem => model.image)
-        }*@
-        @Html.DisplayFor(model => model.image)
+            @Html.DisplayFor(modelItem => Model.image)
+        }
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

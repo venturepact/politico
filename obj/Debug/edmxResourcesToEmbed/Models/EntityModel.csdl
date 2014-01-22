@@ -22,10 +22,8 @@
       <End Role="MP" EntitySet="MPs" />
     </AssociationSet>
     <EntitySet Name="Answers" EntityType="PoliticoModel.Answer" />
-    <EntitySet Name="Comments" EntityType="PoliticoModel.Comment" />
     <EntitySet Name="Members" EntityType="PoliticoModel.Member" />
     <EntitySet Name="Questions" EntityType="PoliticoModel.Question" />
-    <EntitySet Name="Results" EntityType="PoliticoModel.Result" />
     <EntitySet Name="Sectors" EntityType="PoliticoModel.Sector" />
     <AssociationSet Name="FK_Answer_Member" Association="PoliticoModel.FK_Answer_Member">
       <End Role="Member" EntitySet="Members" />
@@ -35,32 +33,10 @@
       <End Role="Question" EntitySet="Questions" />
       <End Role="Answer" EntitySet="Answers" />
     </AssociationSet>
-    <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.FK_Comment_Member">
-      <End Role="Member" EntitySet="Members" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.FK_Comment_MP">
-      <End Role="MP" EntitySet="MPs" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.FK_Comment_Sector">
-      <End Role="Sector" EntitySet="Sectors" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.FK_Result_Member">
-      <End Role="Member" EntitySet="Members" />
-      <End Role="Result" EntitySet="Results" />
-    </AssociationSet>
     <AssociationSet Name="FK_Question_Party" Association="PoliticoModel.FK_Question_Party">
       <End Role="Party" EntitySet="Parties" />
       <End Role="Question" EntitySet="Questions" />
     </AssociationSet>
-    <FunctionImport Name="FindComment" ReturnType="Collection(PoliticoModel.FindComment_Result)">
-      <Parameter Name="MPID" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
-      <Parameter Name="MPID" Mode="In" Type="Int64" />
-    </FunctionImport>
     <FunctionImport Name="FindMPOfConstituency" ReturnType="Collection(PoliticoModel.FindMPOfConstituency_Result)">
       <Parameter Name="constituency" Mode="In" Type="String" />
     </FunctionImport>
@@ -77,6 +53,37 @@
       <Parameter Name="sectorID" Mode="In" Type="Int32" />
       <Parameter Name="loginID" Mode="In" Type="String" />
       <Parameter Name="mpID" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="FindMPRating" ReturnType="Collection(PoliticoModel.FindMPRating_Result)">
+      <Parameter Name="MPID" Mode="In" Type="Int64" />
+      <Parameter Name="loginID" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Comments" EntityType="PoliticoModel.Comment" />
+    <EntitySet Name="Results" EntityType="PoliticoModel.Result" />
+    <AssociationSet Name="FK_Comment_Member" Association="PoliticoModel.FK_Comment_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_MP" Association="PoliticoModel.FK_Comment_MP">
+      <End Role="MP" EntitySet="MPs" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Sector" Association="PoliticoModel.FK_Comment_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_Member" Association="PoliticoModel.FK_Result_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Result" EntitySet="Results" />
+    </AssociationSet>
+    <FunctionImport Name="FindMPComment" ReturnType="Collection(PoliticoModel.FindMPComment_Result)">
+      <Parameter Name="MPID" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="SelectQuestion" ReturnType="Collection(PoliticoModel.SelectQuestion_Result)" />
+    <FunctionImport Name="SaveAnswer" ReturnType="Collection(PoliticoModel.SaveAnswer_Result)">
+      <Parameter Name="questionID" Mode="In" Type="Int32" />
+      <Parameter Name="isAgree" Mode="In" Type="Boolean" />
+      <Parameter Name="loginID" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="Party">
@@ -184,27 +191,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Boolean" Name="IsAgree" />
     <Property Type="Int32" Name="questionID" />
     <Property Type="Int64" Name="userID" />
     <Property Type="DateTime" Name="datetime" Precision="3" />
     <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Answer_Member" FromRole="Answer" ToRole="Member" />
     <NavigationProperty Name="Question" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
-  </EntityType>
-  <EntityType Name="Comment">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
-    <Property Type="String" Name="comment1" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="sectorID" />
-    <Property Type="Int64" Name="userID" />
-    <Property Type="Int64" Name="mpID" />
-    <Property Type="DateTime" Name="datetime" Precision="3" />
-    <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Comment" ToRole="Member" />
-    <NavigationProperty Name="MP" Relationship="PoliticoModel.FK_Comment_MP" FromRole="Comment" ToRole="MP" />
-    <NavigationProperty Name="Sector" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Comment" ToRole="Sector" />
+    <Property Type="Boolean" Name="isAgree" />
   </EntityType>
   <EntityType Name="Member">
     <Key>
@@ -229,15 +221,6 @@
     <Property Type="Int32" Name="partyID" />
     <NavigationProperty Name="Answers" Relationship="PoliticoModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
     <NavigationProperty Name="Party" Relationship="PoliticoModel.FK_Question_Party" FromRole="Question" ToRole="Party" />
-  </EntityType>
-  <EntityType Name="Result">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="String" Name="result1" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="Int64" Name="userID" />
-    <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Result_Member" FromRole="Result" ToRole="Member" />
   </EntityType>
   <EntityType Name="Sector">
     <Key>
@@ -271,6 +254,60 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Question_Party">
+    <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
+    <End Type="PoliticoModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="partyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="FindMPOfConstituency_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="electedYear" Nullable="true" />
+    <Property Type="String" Name="MPImage" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="partyImage" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="FindMPRating_Result">
+    <Property Type="Int32" Name="sectorID" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+    <Property Type="Decimal" Name="rating" Nullable="false" Precision="2" Scale="1" />
+    <Property Type="Int32" Name="noOfUsers" Nullable="true" />
+    <Property Type="Int32" Name="isRated" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="title" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="rating" Precision="2" Scale="1" />
+    <Property Type="Int32" Name="sectorID" />
+    <Property Type="Int64" Name="memberID" />
+    <Property Type="Int64" Name="mpID" />
+    <Property Type="DateTime" Name="datetime" Precision="3" />
+    <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Comment_Member" FromRole="Comment" ToRole="Member" />
+    <NavigationProperty Name="MP" Relationship="PoliticoModel.FK_Comment_MP" FromRole="Comment" ToRole="MP" />
+    <NavigationProperty Name="Sector" Relationship="PoliticoModel.FK_Comment_Sector" FromRole="Comment" ToRole="Sector" />
+  </EntityType>
+  <EntityType Name="Result">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="score" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Int64" Name="memberID" />
+    <NavigationProperty Name="Member" Relationship="PoliticoModel.FK_Result_Member" FromRole="Result" ToRole="Member" />
+  </EntityType>
   <Association Name="FK_Comment_Member">
     <End Type="PoliticoModel.Member" Role="Member" Multiplicity="0..1" />
     <End Type="PoliticoModel.Comment" Role="Comment" Multiplicity="*" />
@@ -279,7 +316,7 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Comment">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="memberID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -315,41 +352,23 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Result">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="memberID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Question_Party">
-    <End Type="PoliticoModel.Party" Role="Party" Multiplicity="0..1" />
-    <End Type="PoliticoModel.Question" Role="Question" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Party">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Question">
-        <PropertyRef Name="partyID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <ComplexType Name="FindComment_Result">
+  <ComplexType Name="FindMPComment_Result">
     <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="String" Name="comment" Nullable="true" MaxLength="500" />
-  </ComplexType>
-  <ComplexType Name="FindMPRating_Result">
-    <Property Type="Int32" Name="sectorID" Nullable="true" />
-    <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-    <Property Type="Decimal" Name="rating" Nullable="true" Precision="38" Scale="6" />
-    <Property Type="Int32" Name="noOfUsers" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="FindMPOfConstituency_Result">
-    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="500" />
     <Property Type="String" Name="firstName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="middleName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="lastName" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="qualification" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="electedYear" Nullable="true" />
-    <Property Type="String" Name="MPImage" Nullable="true" />
+    <Property Type="String" Name="datetime" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="SelectQuestion_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" />
+    <Property Type="Int32" Name="partyID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SaveAnswer_Result">
     <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
-    <Property Type="String" Name="partyImage" Nullable="true" />
+    <Property Type="Decimal" Name="percentage" Nullable="true" Precision="4" Scale="1" />
   </ComplexType>
 </Schema>

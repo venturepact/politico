@@ -6,6 +6,15 @@
 
 <!--Middle Start-->
 <div class="content_main">
+    <input id="title" type="hidden" />
+    <input id="rating" type="hidden" />
+    <input id="sectorID" type="hidden" />
+    <input id="MPID" type="hidden" />
+    <input id="isRated" type="hidden" />
+    <input id="noOfUsers" type="hidden" />
+    <input id="key" type="hidden" />
+    <input id="score" type="hidden" />
+
     <div class="content">
         <!--Left Panel start-->
         <div class="left">
@@ -27,59 +36,25 @@
         <div class="right">
             <div class="right_inner">
                 <h1>Find out who should be voted four ...</h1>
-                <div class="liquid-slider" id="main-slider">
-                    <div class="quns_slider">
-                        <span class="qns">
-                            <p>Q</p>
-                        </span>
-                        <div class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</div>
-                    </div>
-                    <div class="quns_slider">
-                        <span class="qns">
-                            <p>Q</p>
-                        </span>
-                        <div class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</div>
-                    </div>
-                    <div class="quns_slider">
-                        <span class="qns">
-                            <p>Q</p>
-                        </span>
-                        <div class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</div>
-                    </div>
+                <div class="rslides" id="slider1">
                 </div>
-                <div class="radio_ans">
+                <div id="rad" class="radio_ans">
                     <span class="ans">
                         <p>A</p>
                     </span>
-                    <ul class="ans_radio">
-                        <li>
-                            <input type="radio" name="radiog_dark" id="radio5" class="css-checkbox" checked="checked" />
-                            <label for="radio5" class="css-label">Yes</label>
-                        </li>
-                        <li>
-                            <input type="radio" name="radiog_dark" id="radio4" class="css-checkbox" />
-                            <label for="radio4" class="css-label">No</label>
-                        </li>
-                    </ul>
+                    <div class="ans_radio">
+                        <input id="rdYes" type="radio" value="1" />
+                        <p>Yes</p>
+                        <input id="rdNo" type="radio" value="0" />
+                        <p>No</p>
+                    </div>
+                    <a id="btnSubmit" href="#" class="centered-btns_nav centered-btns1_nav next">Next</a>
                 </div>
+
                 <div class="clr"></div>
-                <h1 class="margin-top30">Your Result</h1>
-                <div class="result">
-                    <div class="party">
-                        <div class="color_red"></div>
-                        <div class="party_name">Aam Aadmi Party</div>
-                        <div class="voting">: 60%</div>
-                    </div>
-                    <div class="party">
-                        <div class="color_blue"></div>
-                        <div class="party_name">Aam Aadmi Party</div>
-                        <div class="voting">: 60%</div>
-                    </div>
-                    <div class="party">
-                        <div class="color_green"></div>
-                        <div class="party_name">Aam Aadmi Party</div>
-                        <div class="voting">: 60%</div>
-                    </div>
+
+                <h1 id="hResult" class="margin-top30">Result</h1>
+                <div id="dvResult" class="result">
                 </div>
                 <div class="clr"></div>
             </div>
@@ -89,38 +64,89 @@
 <!--Middle End-->
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        //syntax highlighter
-        hljs.tabReplace = '    ';
-        hljs.initHighlightingOnLoad();
+    var noOfQuestions = 0;
+    var k = 0;
 
-        $.fn.slideFadeToggle = function (speed, easing, callback) {
-            return this.animate({ opacity: 'toggle', height: 'toggle' }, speed, easing, callback);
-        };
-
-        //accordion
-        $('.accordion').accordion({
-            defaultOpen: 'none',
-            cookieName: 'accordion_nav',
-            speed: 'slow',
-            animateOpen: function (elem, opts) { //replace the standard slideUp with custom function
-                elem.next().stop(true, true).slideFadeToggle(opts.speed);
-            },
-            animateClose: function (elem, opts) { //replace the standard slideDown with custom function
-                elem.next().stop(true, true).slideFadeToggle(opts.speed);
-            }
-        });
-
-        $('#section1').addClass('accordion-close');
+    $('#rdYes').click(function () {
+        $('#rdNo').attr('checked', false);
     });
-</script>
+    $('#rdNo').click(function () {
+        $('#rdYes').attr('checked', false);
+    });
+    $('#btnSubmit').click(function () {       
+        if($('#rdYes').prop('checked') || $('#rdNo').prop('checked'))
+        {      
+            if(k < noOfQuestions)
+            {                
+                $.ajax({
+                    url: '/Home/SaveAnswer',
+                    type: "GET",
+                    dataType: "json",
+                    data: { questionID: $('#' + k).attr('name'), isAgree: $('#rdYes').prop('checked') }, 
+                    success: function (data) {
+                        $('#hResult').show();
+                        $('#dvResult').show();
+                        var ihtml = '';
+                        var percentage = 0;
+                        var colors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#e67e22"], selectedColor;
+                        $.each(data, function (key, value) {   
 
-<script>
-    $('#main-slider').liquidSlider();
+                            selectedColor = colors[Math.floor(Math.random() * colors.length)];                            
+                            if(value['percentage'] != 0)
+                            {                                
+                                ihtml +=    '<div class="party">' + 
+                                                '<div class="color_red" style="background: ' + selectedColor +'"></div>' +
+                                                '<div class="party_name">' + value['title'] + '</div>' +
+                                                '<div class="voting">' + value['percentage'] + '%</div>' +
+                                            '</div>';                      
+                                percentage += parseInt(value['percentage']);
+                            }
+                        })
+
+                        if(percentage < 99)
+                        {                            
+                            ihtml +=    '<div class="party">' + 
+                                            '<div class="color_red" style="background: #dc3b3b"></div>' +
+                                            '<div class="party_name">Others</div>' +
+                                            '<div class="voting">' + (100 - percentage) + '%</div>' +
+                                        '</div>';                    
+                        }
+
+                        $('#dvResult').html(ihtml);                        
+                    }
+                });
+                k++;
+                
+                for(var i = 0; i < noOfQuestions; i++)
+                {
+                    if(i == k)
+                        $('#' + i).show();
+                    else
+                        $('#' + i).hide();
+                }  
+                if(k == noOfQuestions)
+                {                    
+                    $('#slider1').hide();
+                    $('#rad').hide();
+                    $('#btnSubmit').hide();
+                    alert('Done! See Result.');
+                }         
+            }            
+            $('#rdYes').attr('checked', false);
+            $('#rdNo').attr('checked', false);             
+        }
+        else
+        {
+            alert('Please select an option');
+        }
+    });    
 </script>
 
 <script>
     $(document).ready(function () {
+        $('#hResult').hide();
+        $('#dvResult').hide();
+       
         $.ajax({
             url: '/Home/LoadMpProfile',
             type: "GET",
@@ -130,65 +156,52 @@
                 $.each(data, function (key, value) {                    
                     var html =  '<div class="left_inner">' +
                                     '<div class="parties">' +                          
-                                        '<img src="/images/Application/Party/' + value['partyImage'] + '" width="75" height="76" alt="" /><span>' + value['title'] +
+                                        '<div id="item' + key +'" class="item"><img src="' + value['partyImage'] + '" width="75" height="76" alt="" />' +
+                                            '<div class="tooltip_description">' +
+                                              '<div class="popmain">' +
+                                                '<div class="popup_inner">' +
+                                                  '<div class="graystrip">' +
+                                                    '<h1>' + value['title'] + '</h1>' +
+                            
+                                                  '</div>' +
+                                                  '<div class="whitestrip"><span>Leader : </span>..</div>' +
+                                                  '<div class="graystrip"><span>Founded : </span>....</div>' +                                                  
+                                               '</div>' + 
+                                             '</div>' + 
+                                          '</div>' + 
+                                        '</div><span>' + value['title'] + '</span>' +
                                     '</div>' +
                                     '<div class="mp">' +                          
-                                        '<img src="/images/Application/MP/' + value['MPImage'] + '" width="75" height="76" alt="" />' +
-                                    '<div class="mp_detail_outer">' +
-                                    '<div class="mp_detail">' +
-                                        '<p><b>Name:</b> ' + value['firstName'] + ' ' + value['middleName'] + ' ' + value['lastName'] + '</p>' +
+                                        '<img src="' + value['MPImage'] + '" width="75" height="76" alt="" />' +
+                                        '<div class="mp_detail_outer">' +
+                                        '<div class="mp_detail">' +
+                                            '<p><b>Name:</b> ' + value['firstName'] + ' ' + value['middleName'] + ' ' + value['lastName'] + '</p>' +
+                                        '</div>' +
+                                        '<div class="mp_detail">' +
+                                            '<p><b>Education:</b> ' + value['qualification'] + '</p>' +
+                                        '</div>' +
+                                        '<div class="mp_detail">' +
+                                            '<p><b>Year in Politics:</b> ' + value['electedYear'] + '</p>' +
+                                        '</div>' +
                                     '</div>' +
-                                    '<div class="mp_detail">' +
-                                        '<p><b>Education:</b> ' + value['qualification'] + '</p>' +
-                                    '</div>' +
-                                    '<div class="mp_detail">' +
-                                        '<p><b>Year in Politics:</b> ' + value['electedYear'] + '</p>' +
-                                    '</div>' +
-                                '</div>' +
                                 '</div>' +
                                 '<div class="mpr">' +                          
                                     '<div id="RatingList' + key + '" class="mpr_detail_outer">' +
 
                                     '</div>' +
-                                '</div>' +
-                                  '<div class="commnet"></div>' +
-                                  '<div class="accordion commnet_btn accordion-close" id="section' + key + '">Comment<span></span></div>' +
-                                  '<div comment_outer" style="display: none;">' +
-                                      '<div class="commnet_box">' +
-                                          '<textarea name="textarea" class="comment_box" cols="45" rows="5" id="textarea"></textarea>' +
-                                          '<div class="post_comment">Post Comment</div>' +
-                                      '</div>' +
-                                      '<div class="commnet_left">' +
-                                          '<div class="read_comment">' +
-                                              '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
-                                          '</div>' +
-                                          '<div class="user_detal">' +
-                                              '<div class="name">Talwinder Singh</div>' +
-                                              '<div class="day">Thursday,</div>' +
-                                              '<div class="month">January 4th,</div>' +
-                                              '<div class="year">2014,</div>' +
-                                              '<div class="time">12:35</div>' +
-                                              '<div class="read_more">read more &raquo;</div>' +
-                                          '</div>' +
-                                      '</div>' +
-                                      '<div class="commnet_left">' +
-                                          '<div class="read_comment">' +
-                                              '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>' +
-                                          '</div>' +
-                                          '<div class="user_detal">' +
-                                              '<div class="name">Talwinder Singh</div>' +
-                                              '<div class="day">Thursday,</div>' +
-                                              '<div class="month">January 4th,</div>' +
-                                              '<div class="year">2014,</div>' +
-                                              '<div class="time">12:35</div>' +
-                                              '<div class="read_more">read more &raquo;</div>' +
-                                          '</div>' +
-                                      '</div>' +
+                                '</div>' +                                  
+                                    '<div class="accordion commnet_btn" id="section' + key + '">Comment<span></span></div>' +
+                                    '<div id="comment_outer' + key + '" class="comment_outer" style="display: none;">' +     
+                                        '<div class="commnet_box">' +
+                                            '<textarea id="comment' + key + '" name="textarea" class="comment_box" placeholder="Type your comment here" cols="45" rows="5" id="textarea"></textarea>' +
+                                            '<div class="post_comment"><a href="#" onclick="postComment();">Post Comment</a></div>' +
+                                        '</div>' +
                                     '</div>'+
-                                    '</div>';
+                                '</div>';
 
-                    $('#MPList').append(html);  
-
+                    $('#MPList').append(html);                    
+                    $("div.item").tooltip();                                        
+                    
                     $.ajax({
                         url: '/Home/LoadRating',
                         type: "GET",
@@ -197,21 +210,115 @@
                         success: function (data) {                                 
                             $.each(data, function (ikey, ivalue) {   
                                 var ihtml = '<div class="mpr_detail">' +
-                                            '<p><b>' + ivalue['title'] + ': </b></p>' +
-                                            '<div id="' + ivalue['title'] + key + '" class="rating_star">' + 
-                                            '</div>' +                                 
-                                            '<div class="users">' + ivalue['noOfUsers'] + ' users' + 
-                                            '</div>' +
-                                        '</div>';                                
-                                $('#RatingList' + key).append(ihtml);  
-                                RateIt(ivalue['title'] + key, ivalue['rating'], ivalue['sectorID'], value['ID']);
+                                                '<p><b>' + ivalue['title'] + ': </b></p>' +
+                                                '<div id="' + ivalue['title'] + key + '" class="rating_star">' + 
+                                                '</div>' +                                 
+                                                '<div id="Count' + ivalue['title'] + key + '"class="users">' + ivalue['noOfUsers'] + ' users' + 
+                                                '</div>' +
+                                            '</div>';                                
+                                $('#RatingList' + key).append(ihtml);
+                                
+                                Rating(ivalue['title'] + key, ivalue['rating'], ivalue['sectorID'], value['ID'], ivalue['isRated'], ivalue['noOfUsers'], key);
                             });                                          
                         },
                         error: function (error) {                
                             alert('Error');
                         }
-                    })                                                
-                });                                          
+                    });
+
+                    $.ajax({
+                        url: '/Home/LoadComment',
+                        type: "GET",
+                        dataType: "json",
+                        data: { MPID: value['ID'] }, 
+                        success: function (data) {                                 
+                            $.each(data, function (ikey, ivalue) {   
+                                var ihtml = '<div class="commnet_left">' +
+                                                '<div class="read_comment">' +
+                                                    '<p>' + ivalue['title'].substring(0, 100) + '</p>' +
+                                                '</div>' +
+                                                '<div class="user_detal">' +
+                                                    '<div class="name">' + ivalue['firstName'] + '</div>' +
+                                                    '<div class="day">' + ivalue['datetime'] + '</div>' +
+                                                    '<div id="item' + key +'" class="item"><div class="read_more">read more ....</div>' +
+                                                        '<div class="tooltip_description">' +
+                                                          '<div class="popmain">' +
+                                                            '<div class="popup_inner">' +
+                                                              '<div class="graystrip">' +
+                                                                '<h1>Comment</h1>' +
+                                                                ivalue['title'] +
+                                                              '</div>' +
+                                                              '<div class="whitestrip"><span>' + ivalue['firstName'] + '</span></div>' +
+                                                              '<div class="graystrip"><span>' + ivalue['datetime'] + '</span></div>' +                                                  
+                                                           '</div>' + 
+                                                         '</div>' + 
+                                                      '</div>' + 
+                                                    '</div>' +                                                                
+                                                '</div>' +
+                                            '</div>';                                                                                    
+                                $('#comment_outer' + key).append(ihtml);   
+                                $("div.item").tooltip();            
+                            });                                          
+                        },
+                        error: function (error) {                
+                            alert('Error');
+                        }
+                    });
+                });         
+                //syntax highlighter
+                hljs.tabReplace = '    ';
+                hljs.initHighlightingOnLoad();
+
+                $.fn.slideFadeToggle = function (speed, easing, callback) {
+                    return this.animate({ opacity: 'toggle', height: 'toggle' }, speed, easing, callback);
+                };
+
+                //accordion
+                $('.accordion').accordion({
+                    defaultOpen: 'none',
+                    cookieName: 'accordion_nav',
+                    speed: 'slow',
+                    animateOpen: function (elem, opts) { //replace the standard slideUp with custom function
+                        elem.next().stop(true, true).slideFadeToggle(opts.speed);
+                    },
+                    animateClose: function (elem, opts) { //replace the standard slideDown with custom function
+                        elem.next().stop(true, true).slideFadeToggle(opts.speed);
+                    }
+                });
+            },
+            error: function (error) {                
+                alert('Error');
+            }
+        })        
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Home/LoadQuestion',
+            type: "GET",
+            dataType: "json",
+            data: '', 
+            success: function (data) {    
+                noOfQuestions = data.length;
+                var ihtml = '';
+                $.each(data, function (key, value) {                    
+                    ihtml += '<div id="' + key + '" name="' + value['ID'] + '"class="quns_slider">' +
+                                    '<span class="qns">' +
+                                        '<p>Q</p>' +
+                                    '</span>' +
+                                    '<div class="text">' + value['title'] + '</div>' +
+                                 '</div>';                                        
+                })
+                $('#slider1').html(ihtml);
+                for(var i = 0; i < noOfQuestions; i++)
+                {
+                    if(i == k)
+                        $('#' + i).show();
+                    else
+                        $('#' + i).hide();
+                }                                
             },
             error: function (error) {                
                 alert('Error');
@@ -223,32 +330,129 @@
 <script>
     $.fn.raty.defaults.path = '/Images/Application/Rating';
 
-    function RateIt(title, rating, sectorID, MPID) {    
+    function Rating(title, rating, sectorID, MPID, isRated, noOfUsers, key) {   
+
+        var readOnly = true;
+
+        if(isRated == 0)
+            readOnly = false;
+        
         $('#' + title).raty({
             half: true,
             path: null,
             starHalf: '/Images/Application/Rating/star-half.png',
             starOff: '/Images/Application/Rating/star-off.png',
             starOn: '/Images/Application/Rating/star-on.png',
-            score: rating,           
+            score: rating,  
+            readOnly: readOnly,
             click: function(score, evt) {
-                $('#' + title).raty({
-                    readOnly: true,
-                    score: score,           
-                });       
-                $.ajax({
-                    url: '/Home/SaveComment',
-                    type: "POST",
-                    dataType: "json",
-                    data: { rating: score, comment: '', sectorID: sectorID, MPID: MPID}, 
-                    success: function (data) {                                                                                 
-                        alert('You rate it (' + score + ')');
-                    },
-                    error: function (error) {                
-                        alert('Error');
-                    }
-                })     
+                $('#title').val(title);
+                $('#rating').val(rating);
+                $('#sectorID').val(sectorID);
+                $('#MPID').val(MPID);
+                $('#isRated').val(isRated);
+                $('#noOfUsers').val(noOfUsers);
+                $('#key').val(key);
+                $('#score').val(score);
+
+                if($('#comment' + key).val().length == 0) {                      
+                    alert('Please comment below also.');                    
+                }
+                else {                    
+                    postComment();
+                }
             }
         });         
+    }
+
+    function postComment()
+    {
+        if($('#score').val().length == 0)
+        {
+            alert('Please rate and then post comment.');            
+        }
+        else
+        {
+            var title = $('#title').val();
+            var rating = parseFloat($('#rating').val());
+            var sectorID = $('#sectorID').val();
+            var MPID = $('#MPID').val();
+            var isRated = $('#isRated').val();
+            var noOfUsers = parseFloat($('#noOfUsers').val());
+            var key = parseFloat($('#key').val());
+            var score = parseFloat($('#score').val());
+
+            $('#' + $('#title').val()).raty({
+                readOnly: true,
+                score: (rating + score)/(noOfUsers + 1)
+            });       
+            $.ajax({
+                url: '/Home/SaveComment',
+                type: "POST",
+                dataType: "json",
+                data: { rating: score, comment: $('#comment' + key).val(), sectorID: sectorID, MPID: MPID}, 
+                success: function (data) {                         
+                    if(data == 1) {
+                        $('#Count' + title).html((noOfUsers + 1) + ' users');      
+                        $('#comment' + key).val('');
+
+                        $.ajax({
+                            url: '/Home/LoadComment',
+                            type: "GET",
+                            dataType: "json",
+                            data: { MPID: MPID }, 
+                            success: function (data) {     
+                                $('#comment_outer' + key).html('<div class="commnet_box">' +
+                                                       '<textarea id="comment' + key + '" name="textarea" class="comment_box" placeholder="Type your comment here" cols="45" rows="5" id="textarea"></textarea>' +
+                                                       '<div class="post_comment">Post Comment</div>' +
+                                                   '</div>');
+                                $.each(data, function (ikey, ivalue) {   
+                                    var ihtml = '<div class="commnet_left">' +
+                                                    '<div class="read_comment">' +
+                                                        '<p>' + ivalue['title'].substring(0, 100) + '</p>' +
+                                                    '</div>' +
+                                                    '<div class="user_detal">' +
+                                                        '<div class="name">' + ivalue['firstName'] + '</div>' +
+                                                        '<div class="day">' + ivalue['datetime'] + '</div>' +                                                
+                                                        '<div id="item' + key +'" class="item"><div class="read_more">read more ....</div>' +
+                                                        '<div class="tooltip_description">' +
+                                                          '<div class="popmain">' +
+                                                            '<div class="popup_inner">' +
+                                                              '<div class="graystrip">' +
+                                                                '<h1>Comment</h1>' +
+                                                                ivalue['title'] +
+                                                              '</div>' +
+                                                              '<div class="whitestrip"><span>' + ivalue['firstName'] + '</span></div>' +
+                                                              '<div class="graystrip"><span>' + ivalue['datetime'] + '</span></div>' +                                                  
+                                                           '</div>' + 
+                                                         '</div>' + 
+                                                      '</div>' + 
+                                                    '</div>' +                                                                
+                                                    '</div>' +
+                                                '</div>';                                                                                    
+                                    $('#comment_outer' + key).append(ihtml);      
+                                    $("div.item").tooltip();            
+                                });                                          
+                            },
+                            error: function (error) {                
+                                alert('Error');
+                            }
+                        });
+                    }                       
+                },
+                error: function (error) {                
+                    alert('Error');
+                }
+            })  
+
+            $('#title').val('');
+            $('#rating').val('');
+            $('#sectorID').val('');
+            $('#MPID').val('');
+            $('#isRated').val('');
+            $('#noOfUsers').val('');
+            $('#key').val('');
+            $('#score').val(score);
+        }        
     }
 </script>

@@ -4,20 +4,13 @@
     ViewBag.Title = "Welcome";
 }
 
-<script>
-
-
-
-</script>
-
-
 <div id="main">
     <div id="page">
         <h1>Venturepact</h1>
         <div id="searchForm" class="well">
             @Html.TextBox("search-textbox", "", new { placeholder = "Type your constituency" })
             <input type="submit" class="popup_open btn btn-large btn-success" value="Search" id="submitButton" onclick="isTextEmpty();" />
-            <%=Html.TextBoxFor(m => m.title)%>                  
+            <div style="display: none"><%=Html.TextBoxFor(m => m.title)%></div>
         </div>
         <div id="popup" style="display: none; margin: 1em; outline: none; z-index: 9999;">
             <div id="box_bg">

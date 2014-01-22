@@ -1,0 +1,63 @@
+﻿@model Politico.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Comment</legend>
+
+    <div class="display-label">
+        Comment
+        @*@Html.DisplayNameFor(model => model.title)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+        Rating
+        @*@Html.DisplayNameFor(model => model.rating)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.rating)
+    </div>
+
+    <div class="display-label">
+        Sector
+        @*@Html.DisplayNameFor(model => model.Sector.title)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sector.title)
+    </div>
+
+    <div class="display-label">
+        User
+        @*@Html.DisplayNameFor(model => model.Member.loginID)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Member.loginID)
+    </div>
+
+    <div class="display-label">
+        MP
+        @*@Html.DisplayNameFor(model => model.MP.firstName)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MP.firstName)
+    </div>
+
+    <div class="display-label">
+        Date
+        @*@Html.DisplayNameFor(model => model.datetime)*@
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datetime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

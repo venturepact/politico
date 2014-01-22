@@ -15,10 +15,10 @@ namespace Politico.Models
     public partial class Answer
     {
         public long ID { get; set; }
-        public Nullable<bool> IsAgree { get; set; }
         public Nullable<int> questionID { get; set; }
         public Nullable<long> userID { get; set; }
         public Nullable<System.DateTime> datetime { get; set; }
+        public Nullable<bool> isAgree { get; set; }
     
         public virtual Member Member { get; set; }
         public virtual Question Question { get; set; }

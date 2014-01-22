@@ -12,23 +12,28 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.firstName)
+            First Name
+            @*@Html.DisplayNameFor(model => model.firstName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.middleName)
+            Middle Name
+            @*@Html.DisplayNameFor(model => model.middleName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.lastName)
+            Last Name
+            @*@Html.DisplayNameFor(model => model.lastName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Constituency.title)
+            Constituency
+            @*@Html.DisplayNameFor(model => model.Constituency.title)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Party.title)
+            Party
+            @*@Html.DisplayNameFor(model => model.Party.title)*@
         </th>
-      @*  <th>
+        @*  <th>
             @Html.DisplayNameFor(model => model.electedYear)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.phone)
         </th>
@@ -37,51 +42,60 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.qualification)
-        </th>
-      @*  <th>
-            @Html.DisplayNameFor(model => model.image)
         </th>*@
+        <th>
+            Photo
+            @*@Html.DisplayNameFor(model => model.image)*@
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.middleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Constituency.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Party.title)
-        </td>
-     @*   <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.middleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Constituency.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Party.title)
+            </td>
+            @*       <td>
             @Html.DisplayFor(modelItem => item.electedYear)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.qualification)
-        </td>
-      @*  <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qualification)
+            </td>*@
+            <td>
+                @if (item.image != null)
+                {                 
+                    <img src="@Url.Content(item.image)" alt="" width="100" height="100" />                                
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.image)
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

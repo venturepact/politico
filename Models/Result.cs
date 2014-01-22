@@ -15,8 +15,8 @@ namespace Politico.Models
     public partial class Result
     {
         public long ID { get; set; }
-        public string result1 { get; set; }
-        public Nullable<long> userID { get; set; }
+        public string score { get; set; }
+        public Nullable<long> memberID { get; set; }
     
         public virtual Member Member { get; set; }
     }

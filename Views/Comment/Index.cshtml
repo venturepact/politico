@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Politico.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*    @Html.ActionLink("Create New", "Create")*@
+</p>
+<table>
+    <tr>
+        <th>Comment
+            @*@Html.DisplayNameFor(model => model.title)*@
+        </th>
+        <th>Rating
+            @*@Html.DisplayNameFor(model => model.rating)*@
+        </th>
+        <th>Sector
+            @*@Html.DisplayNameFor(model => model.Sector.title)*@
+        </th>
+        <th>User
+            @*@Html.DisplayNameFor(model => model.Member.loginID)*@
+        </th>
+        <th>MP
+            @*@Html.DisplayNameFor(model => model.MP.firstName)*@
+        </th>
+        <th>Date
+            @*@Html.DisplayNameFor(model => model.datetime)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sector.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.loginID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MP.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

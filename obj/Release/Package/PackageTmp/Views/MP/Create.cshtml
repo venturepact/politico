@@ -6,14 +6,16 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "MP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>MP</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.firstName)
+            First Name
+            @*@Html.DisplayNameFor(model => model.firstName)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.firstName)
@@ -21,7 +23,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.middleName)
+            Middle Name
+            @*@Html.DisplayNameFor(model => model.middleName)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.middleName)
@@ -29,7 +32,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.lastName)
+            Last Name
+            @*@Html.DisplayNameFor(model => model.lastName)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.lastName)
@@ -53,7 +57,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.electedYear)
+            Elected Year
+            @*@Html.LabelFor(model => model.electedYear)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.electedYear)
@@ -61,7 +66,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.phone)
+            Phone
+            @*@Html.LabelFor(model => model.phone)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.phone)
@@ -69,7 +75,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.mobile)
+            Mobile
+            @*@Html.LabelFor(model => model.mobile)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.mobile)
@@ -77,7 +84,8 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.qualification)
+            Qualification
+            @*@Html.LabelFor(model => model.qualification)*@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.qualification)
@@ -85,10 +93,14 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.image)
+            Photo
+            @*@Html.LabelFor(model => model.image)*@
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.image)
+            @*@Html.EditorFor(model => model.image)
+            @Html.ValidationMessageFor(model => model.image)*@
+            <input type="file" id="fileToUpload" name="file" />
+            <span class="field-validation-error" id="spanfile"></span>
             @Html.ValidationMessageFor(model => model.image)
         </div>
 
@@ -105,3 +117,98 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/jscript">
+    //get file size
+    function GetFileSize(fileid) {
+        try {
+            var fileSize = 0;
+            //for IE
+            if ($.browser.msie) {
+                //before making an object of ActiveXObject, 
+                //please make sure ActiveX is enabled in your IE browser
+                var objFSO = new ActiveXObject("Scripting.FileSystemObject"); var filePath = $("#" + fileid)[0].value;
+                var objFile = objFSO.getFile(filePath);
+                var fileSize = objFile.size; //size in kb
+                fileSize = fileSize / 1048576; //size in mb 
+            }
+                //for FF, Safari, Opeara and Others
+            else {
+                fileSize = $("#" + fileid)[0].files[0].size //size in kb
+                fileSize = fileSize / 1048576; //size in mb 
+            }
+
+            // alert("Uploaded File Size is" + fileSize + "MB");
+            return fileSize;
+        }
+        catch (e) {
+            alert("Error is :" + e);
+        }
+    }
+
+    //get file path from client system
+    function getNameFromPath(strFilepath) {
+
+        var objRE = new RegExp(/([^\/\\]+)$/);
+        var strName = objRE.exec(strFilepath);
+
+        if (strName == null) {
+            return null;
+        }
+        else {
+            return strName[0];
+        }
+
+    }
+
+    $("#btnSubmit").live("click", function () {
+
+        if ($('#fileToUpload').val() == "") {
+            $("#spanfile").html("Please upload file");
+            return false;
+        }
+        else {
+            return checkfile();
+        }
+    });
+
+    function checkfile() {
+        var file = getNameFromPath($("#fileToUpload").val());
+        if (file != null) {
+            var extension = file.substr((file.lastIndexOf('.') + 1));
+            //  alert(extension);
+            switch (extension) {
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                case 'pdf':
+                    flag = true;
+                    break;
+                default:
+                    flag = false;
+            }
+        }
+        if (flag == false) {
+            $("#spanfile").text("You can upload only jpg,png,gif,pdf extension file");
+            return false;
+
+        }
+        else {
+            var size = GetFileSize('fileToUpload');
+            if (size > 3) {
+                $("#spanfile").text("You can upload file up to 3 MB");
+                return false;
+            }
+            else {
+                $("#spanfile").text("");
+            }
+        }
+    }
+    $(function () {
+        $("#fileToUpload").change(function () {
+            checkfile();
+        });
+
+    });
+
+</script>
